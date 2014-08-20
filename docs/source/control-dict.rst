@@ -228,6 +228,7 @@ The intial condition properties are defined using consecutively numbered blocks 
     .
     },
 
+Each block can contain the following options 
 
 .. code-block:: python
 
@@ -271,8 +272,7 @@ Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{
     # Turbulence intensity %
     'turbulence intensity': 0.01,
 
-The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow
-
+The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow.
 For external flows this ratio varies from  0.1 to 1 (wind tunnel 1 to 10)
 
 For internal flows there is greater dependence on Reynolds number
@@ -292,15 +292,14 @@ For internal flows there is greater dependence on Reynolds number
 
     'profile' : {
                  'ABL' : {
-                 'roughness length' : 0.0003,
-                 'friction velocity' : 0.4,
-                #'surface layer height' : -1.0,
-                #'Monin-Obukhov length' : -1.0,
-                 'TKE' : 0.928,
-                 'z0'  : -0.75,
-                             },
-                      },
-          },
+                           'roughness length' : 0.0003,
+                           'friction velocity' : 0.4,
+                          #'surface layer height' : -1.0,
+                          #'Monin-Obukhov length' : -1.0,
+                           'TKE' : 0.928,
+                           'z0'  : -0.75,
+                          },
+                },
 
 Certain conditions are specified relatively
 
@@ -356,13 +355,13 @@ For slip walls use
 
     'kind' : 'slip',
 
-For no slip walls  and low Reynolds number (y+ < 1) RANS meshes use
+For no slip walls  and low Reynolds number :math:`(y^{+} <= 1)` RANS meshes use
 
 .. code-block:: python
 
     'kind' : 'noslip',
 
-For no slip wall with automatic wall functions use
+For no slip wall with automatic wall functions for meshes with variable :math:`y^{+}` use
 
 .. code-block:: python
 
@@ -373,15 +372,18 @@ Roughness specification
 .. code-block:: python
 
     'roughness' : {
+                    # Type of roughness specification (option: height or length)
+                    'type' : 'height',
                     # Constant roughness length
                     'scalar' : 0.001,
                     # Roughnes length field specified as a VTK file
                     'field' : 'bolund_roughness.vtp',
                   },
 
-.. note:: Roughness field
+.. note::
     
-    The roughness length at each boundary face is set by finding the nearest point on the supplied VTK file
+    The roughness length at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the roughness 
+    value looked up in a node based scalar array called 'Roughness'
 
 Wall velocity
 
