@@ -15,6 +15,7 @@ Contents:
    execution
    control-dict
    visualisation
+   validation
 
 Indices and tables
 ==================

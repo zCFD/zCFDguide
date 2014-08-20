@@ -198,6 +198,218 @@ Options
               'Turbulent Prandtl No' : 0.9,
             },
 
+Initial Conditions
+------------------
+
+The intial condition properties are defined using consecutively numbered blocks like
+
+.. code-block:: python
+
+    'IC_1' : {
+    .
+    .
+    .
+    },
+    'IC_2' : {
+    .
+    .
+    .
+    },
+    'IC_3' : {
+    .
+    .
+    .
+    },
+
+
+.. code-block:: python
+
+    # Static temperature in Kelvin
+    'temperature': 293.0,
+    # Static pressure in Pascals
+    'pressure':101325.0,
+
+.. code-block:: python
+
+    # Fluid velocity
+    'V': {
+            # Velocity vector
+            'vector' : [1.0,0.0,0.0],
+            # Optional: specifies velocity magnitude  
+            'Mach' : 0.20,
+          },
+
+Define dynamic viscosity at the static temperature previously specified.
+This can be specified either as a dimensional quantity or by a Reynolds number and reference length
+
+.. code-block:: python
+  
+    # Dynamic viscosity in dimensional units 
+    'viscosity' : 1.83e-5,
+
+or
+
+.. code-block:: python
+
+    # Reynolds number
+    'Reynolds No' : 5.0e6,
+    # Reference length 
+    'Reference Length' : 1.0, 
+
+
+.. code-block:: python
+
+    # Turbulence intensity %
+    'turbulence intensity': 0.01,
+
+.. code-block:: python
+
+    # Eddy viscosity ratio
+    'eddy viscosity ratio':0.01,
+
+
+Boundary Conditions
+-------------------
+
+Boundary condition properties are defined using consecutively numbered blocks like
+
+.. code-block:: python
+
+    'BC_1' : {
+    .
+    .
+    .
+    },
+    'BC_2' : {
+    .
+    .
+    .
+    },
+
+
+Wall
+^^^^
+
+.. code-block:: python
+
+    # Zone type tag
+    'ref' : 3,
+    # Optional: Specific zone boundary condition overide
+    'zone' : [0,1,2,3],
+    # Boundary condition type
+    'type' : 'wall',
+
+There are three kind of wall boundaries that can be specified.
+
+For slip walls use
+
+.. code-block:: python
+
+    'kind' : 'slip',
+
+For no slip walls  and low Reynolds number (y+ < 1) RANS meshes use
+
+.. code-block:: python
+
+    'kind' : 'noslip',
+
+For no slip wall with automatic wall functions use
+
+.. code-block:: python
+
+    'kind' : 'wallfunction',
+
+Roughness specification
+
+.. code-block:: python
+
+    'roughness' : {
+                    # Constant roughness length
+                    'scalar' : 0.001,
+                    # Roughnes length field specified as a VTK file
+                    'field' : 'bolund_roughness.vtp',
+                  },
+
+.. note:: Roughness field
+    
+    The roughness length at each boundary face is set by finding the nearest point on the supplied VTK file
+
+Wall velocity
+
+.. code-block:: python
+
+    'V' : {
+
+    },
+
+Options
+
+.. code-block:: python
+    
+    'linear' : {
+                # Velocity vector
+                'vector' : [1.0,0.0,0.0],
+                # Optional: specifies velocity magnitude  
+                'Mach' : 0.20,
+    },
+
+or
+
+.. code-block:: python
+
+    'rotating' : {
+
+    },
+
+Farfield
+^^^^^^^^
+
+.. code-block:: python
+
+    'ref' : 9,
+    'zone' : [2,3,4,5],
+    'type' : 'farfield',
+    'condition' : 'IC_1',
+    'kind' : 'riemann',
+
+Inflow
+^^^^^^
+
+.. code-block:: python
+
+    'ref' : 4,
+    'type' : 'inflow',
+    'kind' : 'default',
+    'condition' : 'IC_2',
+
+Outflow
+^^^^^^^
+
+.. code-block:: python
+
+    'ref' : 5,
+    'type' : 'outflow',
+    'kind' : 'default',
+    'condition' : 'IC_3',
+
+
+Symmetry
+^^^^^^^^
+
+.. code-block:: python
+
+    # Zone type tag
+    'ref' : 7,
+    # Optional: Specific zone boundary condition overide
+    'zone' : [0,1,2,3],
+    # Boundary condition type
+    'type' : 'symmetry',
+
+Reporting
+---------
+
+Output
+------
 
 
 
