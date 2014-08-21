@@ -3,7 +3,7 @@ Overview
 
 This case exercises the turbulence model through comparing the turbulent boundary layer profile 
 directly with theory given the absence of a pressure gradient. This test is applied to a series 
-of meshes with increasing :math:`y^{+}`` in order to stress the automatic wall function implementation
+of meshes with increasing :math:`y^{+}` in order to stress the automatic wall function implementation
 
 Conditions
 ^^^^^^^^^^

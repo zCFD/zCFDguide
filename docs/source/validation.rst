@@ -1,8 +1,8 @@
 Verification and Validation
 ===========================
 
-Overview
---------
+Introduction
+------------
 
 This Verification guide contains selected cases to which the zCFD many-core accelerated 
 Computational Fluid Dynamics solver has been applied. For each of these cases a comparison
@@ -38,3 +38,5 @@ Drag Prediction Workshop
 Ahmed Body
 ----------
 
+Caradonna Tung Rotor
+--------------------
