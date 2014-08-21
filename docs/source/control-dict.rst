@@ -32,7 +32,7 @@ Reference state
     # reference state
     'reference' : 'IC_1',
 
-.. seealso:: See Initial Conditions 
+.. seealso:: See `Initial Conditions`_ 
 
 Partitioner
 ^^^^^^^^^^^
@@ -52,7 +52,7 @@ Intial conditions. Defaults to reference state if not specified
     # Initial conditions
     'initial' : 'IC_2',
 
-.. seealso:: See Initial Conditions
+.. seealso:: See `Initial Conditions`_
 
 To restart from a previous solution
 
@@ -75,10 +75,7 @@ Time Marcher
 
 .. code-block:: python
 
-    'time marching' : { 
-    .
-    .
-    },
+    'time marching' : {....},
 
 Time accurate simulation control
 
@@ -215,18 +212,9 @@ The intial condition properties are defined using consecutively numbered blocks 
 
 .. code-block:: python
 
-    'IC_1' : {
-    .
-    .
-    },
-    'IC_2' : {
-    .
-    .
-    },
-    'IC_3' : {
-    .
-    .
-    },
+    'IC_1' : {....},
+    'IC_2' : {....},
+    'IC_3' : {....},
 
 Each block can contain the following options 
 
@@ -275,7 +263,7 @@ Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{
 The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow.
 For external flows this ratio varies from  0.1 to 1 (wind tunnel 1 to 10)
 
-For internal flows there is greater dependence on Reynolds number
+For internal flows there is greater dependence on Reynolds number. Typical values are:
 
 +------+-------+------+--------+--------+--------+-----------+
 | Re   |  3000 | 5000 | 10,000 | 15,000 | 20,000 | > 100,000 |
@@ -294,8 +282,8 @@ For internal flows there is greater dependence on Reynolds number
                  'ABL' : {
                            'roughness length' : 0.0003,
                            'friction velocity' : 0.4,
-                          #'surface layer height' : -1.0,
-                          #'Monin-Obukhov length' : -1.0,
+                           'surface layer height' : -1.0,
+                           'Monin-Obukhov length' : -1.0,
                            'TKE' : 0.928,
                            'z0'  : -0.75,
                           },
@@ -325,15 +313,8 @@ Boundary condition properties are defined using consecutively numbered blocks li
 
 .. code-block:: python
 
-    'BC_1' : {
-    .
-    .
-    },
-    'BC_2' : {
-    .
-    .
-    },
-
+    'BC_1' : {....},
+    'BC_2' : {....},
 
 Wall
 ^^^^
@@ -355,7 +336,7 @@ For slip walls use
 
     'kind' : 'slip',
 
-For no slip walls  and low Reynolds number :math:`(y^{+} <= 1)` RANS meshes use
+For no slip walls  and low Reynolds number :math:`(y^{+} \leq 1)` RANS meshes use
 
 .. code-block:: python
 
@@ -374,15 +355,15 @@ Roughness specification
     'roughness' : {
                     # Type of roughness specification (option: height or length)
                     'type' : 'height',
-                    # Constant roughness length
+                    # Constant roughness
                     'scalar' : 0.001,
-                    # Roughnes length field specified as a VTK file
-                    'field' : 'bolund_roughness.vtp',
+                    # Roughnes field specified as a VTK file
+                    'field' : 'roughness.vtp',
                   },
 
 .. note::
     
-    The roughness length at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the roughness 
+    The roughness at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the roughness 
     value looked up in a node based scalar array called 'Roughness'
 
 Wall velocity
@@ -453,7 +434,7 @@ Inflow
 .. note:: 
 
     This boundary condition is specified by a total pressure and temperature ratios that needs to be defined by the 
-    condition this refers to. See Initial Conditions.
+    condition this refers to. See `Initial Conditions`_.
 
 Outflow
 ^^^^^^^
@@ -474,7 +455,7 @@ Outflow
 .. note:: 
 
     This boundary condition is specified by a static pressure ratio that needs to be defined by the 
-    condition this refers to. See Initial Conditions.
+    condition this refers to. See `Initial Conditions`_.
 
 Symmetry
 ^^^^^^^^
@@ -532,66 +513,73 @@ Output
 
 .. topic:: Output Variables
 
-    Variable name:  Qcriterion  - alias: Qcriterion
-    Variable name:  T  - alias: temperature
-    Variable name:  V  - alias: velocity
-    Variable name:  cell_velocity  - alias: cell_velocity
-    Variable name:  centre  - alias: centre
-    Variable name:  cf  - alias: cf
-    Variable name:  cp  - alias: cp
-    Variable name:  density  - alias: density
-    Variable name:  eddy  - alias: eddy
-    Variable name:  frictionforce  - alias: frictionforce
-    Variable name:  frictionmoment  - alias: frictionmoment
-    Variable name:  gauge_pressure  - alias: gauge_pressure
-    Variable name:  m  - alias: mach
-    Variable name:  mach  - alias: mach
-    Variable name:  mu  - alias: viscosity
-    Variable name:  nu  - alias: kinematicviscosity
-    Variable name:  p  - alias: pressure
-    Variable name:  parent  - alias: parent
-    Variable name:  pressure  - alias: pressure
-    Variable name:  pressureforce  - alias: pressureforce
-    Variable name:  pressuremoment  - alias: pressuremoment
-    Variable name:  pressuremomentx  - alias: pressuremomentx
-    Variable name:  pressuremomenty  - alias: pressuremomenty
-    Variable name:  pressuremomentz  - alias: pressuremomentz
-    Variable name:  resvar_1  - alias: resvar_1
-    Variable name:  resvar_2  - alias: resvar_2
-    Variable name:  resvar_3  - alias: resvar_3
-    Variable name:  resvar_4  - alias: resvar_4
-    Variable name:  resvar_5  - alias: resvar_5
-    Variable name:  resvar_6  - alias: resvar_6
-    Variable name:  resvar_7  - alias: resvar_7
-    Variable name:  resvar_8  - alias: resvar_8
-    Variable name:  resvar_9  - alias: resvar_9
-    Variable name:  resvar_10  - alias: resvar_10
-    Variable name:  resvar_11  - alias: resvar_11
-    Variable name:  resvar_12  - alias: resvar_12
-    Variable name:  rho  - alias: density
-    Variable name:  roughness  - alias: roughness
-    Variable name:  t  - alias: temperature
-    Variable name:  temperature  - alias: temperature
-    Variable name:  ti  - alias: turbulenceintensity
-    Variable name:  ut  - alias: ut
-    Variable name:  v  - alias: velocity
-    Variable name:  var_1  - alias: var_1
-    Variable name:  var_2  - alias: var_2
-    Variable name:  var_3  - alias: var_3
-    Variable name:  var_4  - alias: var_4
-    Variable name:  var_5  - alias: var_5
-    Variable name:  var_6  - alias: var_6
-    Variable name:  var_7  - alias: var_7
-    Variable name:  var_8  - alias: var_8
-    Variable name:  var_9  - alias: var_9
-    Variable name:  var_10  - alias: var_10
-    Variable name:  var_11  - alias: var_11
-    Variable name:  var_12  - alias: var_12
-    Variable name:  velocity  - alias: velocity
-    Variable name:  viscosity  - alias: viscosity
-    Variable name:  vorticity  - alias: vorticity
-    Variable name:  walldist  - alias: walldist
-    Variable name:  walldistancezone  - alias: walldistancezone
-    Variable name:  yplus  - alias: yplus
-    Variable name:  zone  - alias: zone
+  +---------------------+---------------------+-----------------------------+
+  | Variable Name       | Alias               | Definition                  |
+  +=====================+=====================+=============================+
+  | temperature         | T, t                |                             |
+  +---------------------+---------------------+-----------------------------+
+  | pressure            | p                   |                             |
+  +---------------------+---------------------+-----------------------------+
+  | density             | rho                 |                             |
+  +---------------------+---------------------+-----------------------------+
+  | velocity            | V, v                |                             |
+  +---------------------+---------------------+-----------------------------+
+  | cp                  |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | mach                | m                   |                             |
+  +---------------------+---------------------+-----------------------------+
+  | viscosity           | mu                  |                             |
+  +---------------------+---------------------+-----------------------------+
+  | kinematicviscosity  | nu                  |                             |
+  +---------------------+---------------------+-----------------------------+ 
+  | gauge_pressure      |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | vorticity           |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | Qcriterion          |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | turbulenceintensity | ti                  |                             |
+  +---------------------+---------------------+-----------------------------+
+  | eddy                |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | cell_velocity       |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | centre              |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | walldistance        |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | walldistancezone    |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | parent              |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+
+  Surface only quantities
+
+  +---------------------+---------------------+-----------------------------+  
+  | pressureforce       |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | pressuremoment      |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | pressuremomentx     |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | pressuremomenty     |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | pressuremomentz     |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | frictionforce       |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | frictionmoment      |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | roughness           |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | ut                  |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | yplus               |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | zone                |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+  | cf                  |                     |                             |
+  +---------------------+---------------------+-----------------------------+
+
+    
 
