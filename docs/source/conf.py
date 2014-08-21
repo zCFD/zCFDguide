@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'zCFDguide'
+project = u'zCFD User Guide'
 copyright = u'2014, Zenotech Ltd'
 
 # The version info for the project you're documenting, acts as replacement for

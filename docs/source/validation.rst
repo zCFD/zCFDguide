@@ -34,8 +34,8 @@ Zero Pressure Gradient Flat Plate
 
 .. include:: cylinder.rst
 
-Drag Prediction Workshop
-------------------------
+NASA Common Research Model
+--------------------------
 
 Ahmed Body
 ----------
