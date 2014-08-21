@@ -24,13 +24,15 @@ Zero Pressure Gradient Flat Plate
 --------
 
 
-NACA0012
---------
+2D NACA0012
+-----------
 
 .. include:: naca0012.rst
 
-Cylinder
---------
+2D Laminar Cylinder
+-------------------
+
+.. include:: cylinder.rst
 
 Drag Prediction Workshop
 ------------------------
