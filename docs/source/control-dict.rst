@@ -122,9 +122,9 @@ CFL
 
     # Default CFL number for all equations 
     'cfl': 2.5,
-    # Optional: CFL number for transported quantities 
+    # Optional: Override CFL number for transported quantities 
     'cfl transport' : 1.5,
-    # Optional: CFL number for coarse meshes
+    # Optional: Override CFL number for coarse meshes
     'cfl coarse' : 2.0,
 
 Cycles
@@ -263,7 +263,8 @@ Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{
 The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow.
 For external flows this ratio varies from  0.1 to 1 (wind tunnel 1 to 10)
 
-For internal flows there is greater dependence on Reynolds number. Typical values are:
+For internal flows there is greater dependence on Reynolds number as the largest eddies in the flow are limited
+by the characteristic lengths of the geometry (e.g. The height of the channel or diameter of the pipe). Typical values are:
 
 +------+-------+------+--------+--------+--------+-----------+
 | Re   |  3000 | 5000 | 10,000 | 15,000 | 20,000 | > 100,000 |
@@ -289,7 +290,7 @@ For internal flows there is greater dependence on Reynolds number. Typical value
                           },
                 },
 
-Certain conditions are specified relatively
+Certain conditions are specified relative to a reference set of conditons
 
 .. code-block:: python
 

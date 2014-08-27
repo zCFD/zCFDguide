@@ -11,8 +11,8 @@ It is also recommended to always use any computational nodes in exclusive mode t
 
 .. code-block:: bash
 	
-	# PROBLEM_NAME is the name of the hdf5 file containing the mesh
-	# CASE_NAME is the name of the python control 
-	
+    # PROBLEM_NAME is the name of the hdf5 file containing the mesh
+    # CASE_NAME is the name of the python control 
+    
     mpiexec -n $NTASKS smartlaunch.bsh $PROBLEM_NAME -c $CASE_NAME
 
