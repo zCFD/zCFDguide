@@ -5,7 +5,7 @@ The periodic shedding over a cylinder at :math:`Re=100` can be used to verify th
 Conditions
 ^^^^^^^^^^
 
-:math:`Re=100`
+:math:`Re=150`
 
 :math:`Mach=0.1`
 
