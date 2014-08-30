@@ -33,5 +33,5 @@ The results are compared to experiment and to CFL3D at three angles of attack.
 References
 ^^^^^^^^^^
 
-`http://aaac.larc.nasa.gov/tsab/cfdlarc/aiaa-dpw/`_
+`<http://aaac.larc.nasa.gov/tsab/cfdlarc/aiaa-dpw/>`_
 

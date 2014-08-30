@@ -1,6 +1,13 @@
 Overview
 ^^^^^^^^
 
+.. figure:: http://turbmodels.larc.nasa.gov/NACA0012_grids/grid_bcs.jpg
+	:width: 75%
+	:align: center
+	:alt: alternate text
+	:figclass: align-center
+
+
 Conditions
 ^^^^^^^^^^
 
