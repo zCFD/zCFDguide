@@ -37,6 +37,8 @@ Zero Pressure Gradient Flat Plate
 NASA Common Research Model
 --------------------------
 
+.. include:: nasacrm.rst
+
 Ahmed Body
 ----------
 

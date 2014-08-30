@@ -1,6 +1,6 @@
 Overview
 ^^^^^^^^
-The periodic shedding over a cylinder at :math:`Re=100` can be used to verify the time accuracy of the solver. 
+The periodic shedding over a cylinder at :math:`Re=150` can be used to verify the time accuracy of the solver. 
 
 Conditions
 ^^^^^^^^^^
