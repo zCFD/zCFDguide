@@ -470,6 +470,39 @@ Symmetry
     # Boundary condition type
     'type' : 'symmetry',
 
+Periodic
+^^^^^^^^
+
+.. code-block:: python
+
+    # Specific zone index
+    'zone' : [1],
+    # Type of boundary condition
+    'type' : 'periodic',
+    # Periodic boundary condition
+    'kind' : {
+              # Rotated periodic settings
+              'rotated' : {
+                           'theta' : math.radians(120.0),
+                           'axis' : [1.0,0.0,0.0],
+                           'origin' : [-1.0,0.0,0.0],
+                          },
+             },
+
+or
+
+.. code-block:: python
+
+    'zone' : [1],
+    'type' : 'periodic',
+    'kind' : {
+              # linear periodic
+              'linear' : {
+                           'vector' : [1.0,0.0,0.0],
+                          },
+             },
+
+
 Reporting
 ---------
 
@@ -478,23 +511,47 @@ Reporting
     'report' : {
                   # Report frequency
                   'frequency' : 1,
+                  # Extract specified variable at fixed locations
                   'monitor' : {
+                                 # Consecutively numbered blocks 
                                  'MR_1' : {
+                                            # Name
                                             'name' : 'mast_1',
+                                            # Location
                                             'point' : [49673.0, 58826.0, 1120.0],
+                                            # Variables to be extracted
                                             'variables' : ['V','ti'],
                                           },
                               },
 
+                  # Report force coefficient in grid axis as well as using user defined transform
                   'forces' : {
+                        # Consecutively numbered blocks
                         'FR_1' : {
+                                     # Name 
                                      'name' : 'wall',
+                                     # Zones to be included
                                      'zone' : [11,12,13,14,15,20,21,22,23,24,25,26,27,28],
+                                     # Transformation function
                                      'transform' : my_transform,
+                                     # Reference area
                                      'reference area' : 0.112032,
                                  },
                       },
                 },
+
+Example Transformation Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    # Angle of attack
+    alpha = 10.0
+    # Transform into wind axis
+    def my_transform(x,y,z):
+        v = [x,y,z]
+        v =  zutil.rotate_vector(v,alpha,0.0)
+        return {'v1' : v[0], 'v2' : v[1], 'v3' : v[2]}
 
 Output
 ------
