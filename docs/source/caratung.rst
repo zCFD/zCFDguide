@@ -3,12 +3,21 @@ Overview
 
 This case aims to reproduce the results from an experiment undertaken by F. X. Caradonna and C. Tung in 1981 and published in NASA TM 81232.
 
+The rotor airfoil section is a NACA0012 pitched about 25% chord. For this simulation the hub has been ignored.
+
+:math:`A_r=6.0`
+
+:math:`Pitch=8^o`
+
+:math:`Chord=1`
 
 Conditions
 ^^^^^^^^^^
 
-:math:`M_tip=0.87`
-:math:`Span=6 x Chord `
+:math:`M_{tip}=0.877`
+
+:math:`Re=3.93x10^6`
+
 
 Mesh
 ^^^^
@@ -16,6 +25,8 @@ Mesh
 
 Results
 ^^^^^^^
+
+
 
 .. figure:: images/caratung.png
 	:width: 90%
@@ -33,5 +44,5 @@ Results
 References
 ^^^^^^^^^^
 
-`<data/NASA_TM_81232.pdf>`
+`NASA TM 81232 <data/NASA_TM_81232.pdf>`_
 
