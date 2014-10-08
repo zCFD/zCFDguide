@@ -473,6 +473,9 @@ Symmetry
 Periodic
 ^^^^^^^^
 
+This boundary condition needs to be specified in pairs with opposing transformations.
+The transforms specified should map each zone onto each other.
+
 .. code-block:: python
 
     # Specific zone index
