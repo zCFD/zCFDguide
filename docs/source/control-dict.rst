@@ -42,6 +42,16 @@ Partitioner
     'partitioner' : 'metis',
 
 
+Safe Mode
+^^^^^^^^^
+
+Safe mode turns on extra checks and provides diagnosis in the case of solver stability issues
+
+.. code-block:: python
+
+    # Safe mode
+    'safe' : 'false'
+
 Initialisation
 --------------
 
@@ -571,6 +581,25 @@ Output
                       # Output frequency
                       'frequency' : 100,
                     },   
+
+Options
+
+.. code-block:: python
+
+    'format' : 'vtk'
+
+.. code-block:: python
+
+    'format' : 'ensight'
+
+.. code-block:: python
+
+    'format' : 'native'
+
+.. code-block:: python
+
+    'scripts' : ['paraview_catalyst1.py','paraview_catalyst2.py']
+
 
 .. topic:: Output Variables
 
