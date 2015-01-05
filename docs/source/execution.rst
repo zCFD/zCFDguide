@@ -11,7 +11,7 @@ or
 
 .. code-block:: bash
 
-	export RLM_LICENSE=/path/to/icense/file
+	export RLM_LICENSE=/path/to/license/file
 
 In the case that the system running the simulation cannot access the internet a local license server will be required. 
 
@@ -62,7 +62,9 @@ Example usage:
 
 .. code-block:: bash
 
-	mycluster --create=my-job.job --jobname=my-job --project=my-project --jobqueue=my-job-queue --ntasks=2 --taskpernode=2 --script=mycluster-zcfd.bsh
+	mycluster --create=my-job.job --jobname=my-job --project=my-project --jobqueue=my-job-queue \
+	          --ntasks=2 --taskpernode=2 --script=mycluster-zcfd.bsh
+
 	(export PROBLEM=my-test.h5;export CASE=my-test.py; mycluster --submit=my-job.job)
 
 Description of arguments
