@@ -13,9 +13,7 @@ or
 
 	export RLM_LICENSE=/path/to/license/file
 
-In the case that the system running the simulation cannot access the internet a local license server will be required. 
-
-
+In the case that the system running the simulation cannot access the internet a local license server will be required. See http://www.reprisesoftware.com/admin/software-licensing.php for details.
 
 
 Execution
@@ -30,7 +28,9 @@ The command line environment is initialised by
 
 	source /INSTALL_LOCATION/zCFD-version/bin/activate
 
-This sets up the environment to enable execution of the specific version. To deactivate
+This sets up the environment to enable execution of the specific version. 
+
+To deactivate returning the environment to the previous state use
 
 .. code-block:: bash
 	
@@ -67,7 +67,15 @@ Example usage:
 
 	(export PROBLEM=my-test.h5;export CASE=my-test.py; mycluster --submit=my-job.job)
 
-Description of arguments
+The number of tasks per node should match the number of compute devices per node (CPU sockets, Xeon Phi devices or Nvidia GPU devices)
+
+A list of available job queues can be obtained using
+
+.. code-block:: bash
+
+	mycluster -q
+
+For a complete description of arguments use
 
 .. code-block:: bash
 
