@@ -308,6 +308,8 @@ Certain conditions are specified relative to a reference set of conditons
     'total pressure ratio' : 1.0,
     # total temperature/reference static temperature
     'total temperature ratio' : 1.0,
+    # Mach number
+    'mach' : 0.5,
 
 .. code-block:: python
 
@@ -315,6 +317,15 @@ Certain conditions are specified relative to a reference set of conditons
     # static pressure/reference static pressure
     'static pressure ratio' : 1.0,
 
+.. code-block:: python
+  
+    'reference' : 'IC_1',
+    # Mass flow ratio
+    'mass flow ratio' : 1.0,
+
+.. note::
+
+    :math:`W^* =\frac{\dot{m}\sqrt{C_pT_0}}{p_0}`
 
 Boundary Conditions
 -------------------
@@ -486,13 +497,19 @@ Outflow
     # Boundary condition type
     'type' : 'outflow',
     # Kind of outflow
-    'kind' : 'default',
+    'kind' : 'pressure',
     # Outflow conditions
     'condition' : 'IC_3',
 
+For massflow specified outflows use
+
+.. code-block:: python
+    
+    'kind' : 'massflow',
+
 .. note:: 
 
-    This boundary condition is specified by a static pressure ratio that needs to be defined by the 
+    This boundary condition is specified by a static pressure ratio or massflow ratio that needs to be defined by the 
     condition this refers to. See `Initial Conditions`_.
 
 Symmetry
