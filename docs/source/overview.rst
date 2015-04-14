@@ -12,5 +12,5 @@ To support this scalable implementation the mesh input is provided in hdf5 forma
 
 zCFD uses a single control dictionary to specify all the parameters. This is a python file containing a python dictionary with certain mandatory keys. The use of python for the control dictionary enables the user to add custom functions that populate the dictionary at runtime.
 
-ZCFD is a hybrid of an open-source (freely available without restriction) front-end (“ZCFD Driver”) and proprietary (closed-source) back-end (“ZCFD Core”). Anyone can develop “ZCFD Driver” for its own purposes including commercial exploitation.
+ZCFD is a hybrid of an open-source (freely available without restriction) front-end (“ZCFD Driver”) and proprietary (closed-source) back-end (“ZCFD Core”). Anyone can develop “ZCFD Driver” for their own purposes including commercial exploitation.
 
