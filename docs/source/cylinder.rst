@@ -40,15 +40,12 @@ For this case the shedding frequency is measured by monitoring the variation in 
 
 :math:`U=66.8163 m/s`
 
-:math:`Distance \: between \: peaks \approx 827 timesteps (each timestep is 0.0001 second)`
+:math:`Timestep \: \Delta t = 0.0001s`
+
+:math:`Distance \: between \: peaks \approx 827 \: timesteps `
 
 :math:`Frequency = 1.0/(827*0.0001) = 12Hz`
 
 :math:`S_t = \frac{fD}{U} = 12*1/66.813 = 0.18`
 
 The experimental value of the Strouhal number ranges from :math:`0.179 - 0.182`.
-
-
-
-
-
