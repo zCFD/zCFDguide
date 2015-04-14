@@ -42,7 +42,7 @@ For this case the shedding frequency is measured by monitoring the variation in 
 
 :math:`Timestep \: \Delta t = 0.0001s`
 
-:math:`Distance \: between \: peaks \approx 827 \: timesteps `
+:math:`Distance \: between \: peaks \approx 827 \: timesteps`
 
 :math:`Frequency = 1.0/(827*0.0001) = 12Hz`
 
