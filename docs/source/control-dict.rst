@@ -32,7 +32,7 @@ Reference state
     # reference state
     'reference' : 'IC_1',
 
-.. seealso:: See `Initial Conditions`_ 
+.. seealso:: See `Initial Conditions`_
 
 Partitioner
 ^^^^^^^^^^^
@@ -50,7 +50,7 @@ Safe mode turns on extra checks and provides diagnosis in the case of solver sta
 .. code-block:: python
 
     # Safe mode
-    'safe' : 'false'
+    'safe' : 'false',
 
 Initialisation
 --------------
@@ -378,7 +378,7 @@ Roughness specification
                     'type' : 'height',
                     # Constant roughness
                     'scalar' : 0.001,
-                    # Roughnes field specified as a VTK file
+                    # Roughness field specified as a VTK file
                     'field' : 'roughness.vtp',
                   },
 
