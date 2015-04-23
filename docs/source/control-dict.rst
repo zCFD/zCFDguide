@@ -1,9 +1,9 @@
 Control Dictionary
 ==================
 
-The zCFD control file is a python file that is executed a runtime. This provides a flexible way of specifying key parameters enabling user defined functions and the leverage of rich python libraries.
+The zCFD control file is a python file that is executed at runtime. This provides a flexible way of specifying key parameters enabling user defined functions and leverage of rich python libraries.
 
-A python dictionary called parameters provides the main interface to controlling zCFD
+A python dictionary called 'parameters' provides the main interface to controlling zCFD
 
 .. code-block:: python
 
@@ -32,15 +32,16 @@ Reference state
     # reference state
     'reference' : 'IC_1',
 
-.. seealso:: See `Initial Conditions`_ 
+.. seealso:: See `Initial Conditions`_
 
 Partitioner
 ^^^^^^^^^^^
 
+The 'metis' partitioner is used to split the computational mesh up so that the job can be run in parallel.  Other partitioners will be added in future code releases
+
 .. code-block:: python
 
     'partitioner' : 'metis',
-
 
 Safe Mode
 ^^^^^^^^^
@@ -50,12 +51,12 @@ Safe mode turns on extra checks and provides diagnosis in the case of solver sta
 .. code-block:: python
 
     # Safe mode
-    'safe' : 'false'
+    'safe' : 'false',
 
 Initialisation
 --------------
 
-Intial conditions. Defaults to reference state if not specified
+Initial conditions are used to set the flow variable values in all cells at the start of a simulation.  The initial conditions default to the reference state (above) if not specified
 
 .. code-block:: python
 
@@ -73,6 +74,8 @@ To restart from a previous solution
 
 Low Mach number preconditioner settings (Optional)
 
+The preconditioner is a mathematical technique for improving the speed of the solver when the fluid flow is slow compared to the speed of sound.  Use of the preconditioner does not alter the final converged solution produced by the solver.  The preconditioner factor is used to improve the robustness of the solver in regions of very low speed.
+
 .. code-block:: python
 
     # Advanced: Preconditoner factor
@@ -87,7 +90,7 @@ Time Marcher
 
     'time marching' : {....},
 
-Time accurate simulation control
+Time accurate (unsteady) simulation control
 
 .. code-block:: python
 
@@ -96,9 +99,9 @@ Time accurate simulation control
                    'total time' : 1.0,
                    # Time step in seconds
                    'time step' : 1.0,
-                   # Time accuracy (options: first or second)
+                   # Time accuracy (options: 'first' or 'second' order)
                    'order' : 'second',
-                   # Number of pseudo time cycles to run before starting time accurate simulation
+                   # Number of pseudo time (steady) cycles to run before starting time accurate simulation
                    'start' : 3000, 
                  },
 
@@ -115,6 +118,9 @@ Solver scheme
 
 Multigrid
 ^^^^^^^^^
+
+The mesh is automatically coarsened by merging cells on successive layers in order to accelerate solver convergence.  This does not alter the accuracy of the solution on the finest (original) mesh.  Advanced users can control the number of geometric multigrid levels and the 'prolongation' of quantities from coarse to fine meshes.
+
 .. code-block:: python
 
     # Maximum number of meshes (including fine mesh)
@@ -128,6 +134,9 @@ Multigrid
 
 CFL
 ^^^
+
+The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step that the solver uses to reach a converged solution. The larger the CFL number, the faster the solver will run but the less stable it will be.  The default values should be appropriate for most cases, but for lower-quality meshes or very complex geometries it may be necessary to use lower values (e.g. CFL of 1.0).  In such cases it may also be helpful to turn off Multigrid (above) by setting the maximum number of meshes to 0.
+
 .. code-block:: python
 
     # Default CFL number for all equations 
@@ -139,12 +148,15 @@ CFL
 
 Cycles
 ^^^^^^
+
+For steady-state simulations, the number of pseudo time cycles is the same as the number of steps that the solver should use to reach a converged solution.  Note that the solver uses local pseudo time-stepping (the time-step varies according to local conditions) so any intermediate solution is not necessarily time-accurate.
+
+For unsteady (time-accurate) simulations, zCFD uses 'dual time-stepping' to advance the solution in time.  For unsteady simulations, the number of pseudo time cycles determines the number of inner iterations that the solver uses to converge each real time step.
+
 .. code-block:: python
 
     # Number of pseudo time cyles 
     'cycles' : 5000,
-
-
 
 Equations
 ---------
@@ -199,6 +211,8 @@ Options
 Material Specification
 ----------------------
 
+The user can specify any fluid material properties by following the (default) scheme for 'air':
+
 .. code-block:: python
 
     'material' : 'air',
@@ -245,7 +259,7 @@ Each block can contain the following options
             'Mach' : 0.20,
           },
 
-Define dynamic viscosity at the static temperature previously specified.
+Dynamic (shear, absolute or molecular) viscosity should be defined at the static temperature previously specified.
 This can be specified either as a dimensional quantity or by a Reynolds number and reference length
 
 .. code-block:: python
@@ -286,6 +300,8 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
     # Eddy viscosity ratio
     'eddy viscosity ratio': 0.1,
 
+The user can also provide functions to specify a 'wall-function' - or the turbulence viscosity profile near a boundary.  For example an atmospheric boundary layer (ABL) could be specified like this:
+
 .. code-block:: python
 
     'profile' : {
@@ -299,7 +315,7 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
                           },
                 },
 
-Certain conditions are specified relative to a reference set of conditons
+Certain conditions are specified relative to a reference set of conditions
 
 .. code-block:: python
 
@@ -340,6 +356,8 @@ Boundary condition properties are defined using consecutively numbered blocks li
 Wall
 ^^^^
 
+zCFD will automatically detect zone types and numbers in a number of mesh formats, and assign appropriate boundary conditions. The type tags follow the [XX] convention, and if present no further information is required.  Alternatively, the mesh format may contain explicitly numbered zones (which can be determined by inspecting the mesh).  In this case, the user can specify the list of zone numbers for each boundary condition 'type' and 'kind' (see below).
+
 .. code-block:: python
 
     # Zone type tag
@@ -357,7 +375,7 @@ For slip walls use
 
     'kind' : 'slip',
 
-For no slip walls  and low Reynolds number :math:`(y^{+} \leq 1)` RANS meshes use
+For no slip walls and low Reynolds number :math:`(y^{+} \leq 1)` RANS meshes use
 
 .. code-block:: python
 
@@ -378,7 +396,7 @@ Roughness specification
                     'type' : 'height',
                     # Constant roughness
                     'scalar' : 0.001,
-                    # Roughnes field specified as a VTK file
+                    # Roughness field specified as a VTK file
                     'field' : 'roughness.vtp',
                   },
 
@@ -388,6 +406,8 @@ Roughness specification
     value looked up in a node based scalar array called 'Roughness'
 
 Wall velocity
+
+The wall can itself be moving with a prescribed linear (or rotating) velocity
 
 .. code-block:: python
 
@@ -422,6 +442,8 @@ or
 
 Farfield
 ^^^^^^^^
+
+The farfield boundary condition can automatically determine whether the flow is locally an inflow or an outflow by solving a Riemann equation.
 
 .. code-block:: python
 
@@ -563,6 +585,8 @@ or
 Reporting
 ---------
 
+In addition to standard flow field outputs (see below), zCFD can provide information at monitor points in the flow domain, and integrated forces across all parallel partitions
+
 .. code-block:: python
 
     'report' : {
@@ -612,6 +636,8 @@ Example Transformation Function
 
 Output
 ------
+
+For solver efficiency, zCFD outputs the raw flow field data (plus any user-defined variables) to each parallel partition without re-combining the output files  
 
 .. code-block:: python
 

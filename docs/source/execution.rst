@@ -67,6 +67,8 @@ Example usage:
 
 	(export PROBLEM=my-test.h5;export CASE=my-test.py; mycluster --submit=my-job.job)
 
+Note that the 'mycluster-zcfd.bsh' script is included (along with scripts for a number of other CFD codes) in the MyCluster distribution in the 'share' directory
+
 The number of tasks per node should match the number of compute devices per node (CPU sockets, Xeon Phi devices or Nvidia GPU devices)
 
 A list of available job queues can be obtained using
