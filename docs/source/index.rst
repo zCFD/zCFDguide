@@ -3,24 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to zCFD User documentation
-==================================
-
-Contents:
+Welcome to the zCFD User Guide
+==============================
 
 .. toctree::
    :maxdepth: 2
 
    overview
+   formulation
+   license
    execution
    control-dict
    meshutil
    visualisation
    validation
-
-Indices and tables
-==================
-
-* :ref:`genindex`
 
 
