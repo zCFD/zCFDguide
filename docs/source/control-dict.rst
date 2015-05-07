@@ -140,7 +140,9 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
 .. code-block:: python
 
     # Default CFL number for all equations 
-    'cfl': 2.5,
+    'cfl': 2.5
+    # Optional: Start small and increase the CFL each cycle by a growth factor up to the 'cfl' value
+    'ramp': { 'initial': 1.0, 'growth': 1.1 },
     # Optional: Override CFL number for transported quantities 
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
@@ -163,9 +165,10 @@ Equations
 
 .. code-block:: python
 
+    # Governing equations to be used (options: RANS, euler, viscous)
     'equations' : 'RANS',
 
-Options
+Compressible Euler flow is inviscid (no viscosity and hence no turbulence).  The compressible Euler equations are appropriate when modelling flows where momentum significantly dominates viscosity - for example at very high speed. The computational mesh used for Euler flow does not need to resolve the flow detail in the boundary layer and hence will generally have far fewer cells than the corresponding viscous mesh would have.
 
 .. code-block:: python
 
@@ -178,6 +181,8 @@ Options
               'precondition' : 'true',                                          
             },
 
+The viscous (laminar) equations model flow that is viscous but not turbulent.  The Reynolds number (http://en.wikipedia.org/wiki/Reynolds_number) of a flow regime determines whether or not the flow will be turbulent. The computational mesh for a viscous flow does have to resolve the boundary layer, but the solver will run faster as fewer equations are being included.
+
 .. code-block:: python
 
     'viscous' : {
@@ -189,6 +194,7 @@ Options
                   'precondition' : 'true',                                          
                 },
 
+The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
 
 .. code-block:: python
 
@@ -259,8 +265,7 @@ Each block can contain the following options
             'Mach' : 0.20,
           },
 
-Dynamic (shear, absolute or molecular) viscosity should be defined at the static temperature previously specified.
-This can be specified either as a dimensional quantity or by a Reynolds number and reference length
+Dynamic (shear, absolute or molecular) viscosity should be defined at the static temperature previously specified.  This can be specified either as a dimensional quantity or by a Reynolds number and reference length
 
 .. code-block:: python
   
@@ -276,8 +281,7 @@ or
     # Reference length 
     'Reference Length' : 1.0, 
 
-Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{'}` to the mean flow velocity. A turbulence intensity of
-1% is considered low and greater than 10% is considered high.   
+Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{'}` to the mean flow velocity. A turbulence intensity of 1% is considered low and greater than 10% is considered high.
 
 .. code-block:: python
 
@@ -356,7 +360,7 @@ Boundary condition properties are defined using consecutively numbered blocks li
 Wall
 ^^^^
 
-zCFD will automatically detect zone types and numbers in a number of mesh formats, and assign appropriate boundary conditions. The type tags follow the [XX] convention, and if present no further information is required.  Alternatively, the mesh format may contain explicitly numbered zones (which can be determined by inspecting the mesh).  In this case, the user can specify the list of zone numbers for each boundary condition 'type' and 'kind' (see below).
+zCFD will automatically detect zone types and numbers in a number of mesh formats, and assign appropriate boundary conditions. The type tags follow the Fluent convention (wall = 3, etc), and if present no further information is required.  Alternatively, the mesh format may contain explicitly numbered zones (which can be determined by inspecting the mesh).  In this case, the user can specify the list of zone numbers for each boundary condition 'type' and 'kind' (see below).
 
 .. code-block:: python
 
