@@ -7,12 +7,13 @@ Welcome to the zCFD User Guide
 ==============================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    overview
    formulation
    license
    execution
+   mycluster
    control-dict
    meshutil
    visualisation

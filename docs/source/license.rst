@@ -1,5 +1,5 @@
-License Server
-==============
+License
+=======
 
 zCFD requires a license.  If you do not already have a license, please contact mailto:zcfd@zenotech.com to obtain one.  The license file provided can be placed in the same directory alongside the input files or else its location can be defined using the environment variables below
 

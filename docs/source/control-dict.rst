@@ -357,6 +357,8 @@ Boundary condition properties are defined using consecutively numbered blocks li
     'BC_1' : {....},
     'BC_2' : {....},
 
+.. _wall:
+
 Wall
 ^^^^
 

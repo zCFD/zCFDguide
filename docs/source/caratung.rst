@@ -30,8 +30,6 @@ Mesh
 Results
 ^^^^^^^
 
-
-
 .. figure:: images/caratung.png
 	:width: 90%
 	:align: center

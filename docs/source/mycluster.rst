@@ -1,79 +1,81 @@
-Execution
+.. _mycluster:
+
+MyCluster
 =========
 
-zCFD is run from the command line using a customised environment that automatically sets up all of the paths and file locations correctly.  To make the execution of parallel jobs easier, we also provide the free tool `MyCluster`_ that simplifies the interaction with a range of job schedulers.
+MyCluster from Zenotech is used to set up, run, monitor and manage parallel jobs on a range of high performance computing environments without the user having to know the details of the queueing systems and job scheduler commands.
 
-(zCFD) Command Line Environment
--------------------------------
+MyCluster is distributed as part of zCFD, and is automatically available from within the zCFD command line environment. Alternatively, MyCluster can be `downloaded <https://github.com/zenotech/MyCluster>`_ and installed separately.
 
-To run zCFD, the *zCFD command line environment* must be active. The zCFD command line environment is initialised from a terminal window by sourcing the *activate* script in the zCFD installation directory.  It does not matter where this directory is - all of the executable paths and file locations will be set automatically:
+To use MyCluster within the zCFD command line environment, you first need to configure it with your user details.  This is so that MyCluster can keep track of your jobs, and email you with alerts.  This step only needs to be done once per user.
 
-.. code-block:: bash
-
-	> source /INSTALL_LOCATION/zCFD-version/bin/activate
-
-This sets up the environment to enable execution of the specific version. When this environment is active, you should see a prefix to your command prompt, such as:
+First enter your details:
 
 .. code-block:: bash
 
-    (zCFD) >
+    (zCFD): mycluster --firstname <Your First Name>
+    (zCFD): mycluster --lastname <Your Last Name>
+    (zCFD): mycluster --email <Your Email Address>
 
-To deactivate the command line environment, returning the environment to the previous state use
-
-.. code-block:: bash
-	
-    (zCFD) > zdeactivate
-
-Your command prompt should return to its normal appearance.
-
-Smartlaunch
------------
-
-zCFD makes very effective use of a range of processor types and computer configurations.  We provide a *smartlaunch.bsh* script with zCFD to automatically detect the processor type and the presence of any accelerators (like Nvidia GPUs or Intel Xeon Phi's).
-
-Smartlaunch uses this information to calculate the number of OpenMP threads to set per MPI task and to perform NUMA binding to specific cores and memory banks.
-
-The optimum number of execution tasks ($NTASKS below) should match the total number of sockets (usually two per node) **not** the number of cores.  This configuration will also work for systems with accelerators present.
-
-It is also recommended to always use any computational nodes in exclusive mode to achieve the best performance. TODO - how do we ensure this?
+MyCluster generates and uses *job* files for zCFD (and other software packages) for each different computer system. To set up a job file for zCFD, enter (for example):
 
 .. code-block:: bash
-	
-    # PROBLEM_NAME is the name of the hdf5 file containing the mesh
-    # CASE_NAME is the name of the python control 
-    
-    mpiexec -n $NTASKS smartlaunch.bsh $PROBLEM_NAME -c $CASE_NAME
 
+    (zCFD): mycluster --create=my-job.job \
+                      --jobname=my-job \
+                      --project=my-project \
+                      --jobqueue=my-job-queue \
+                      --ntasks=12 \
+                      --taskpernode=2 \
+                      --script=mycluster-zcfd.bsh \
+                      --maxtime=12
 
+This will create a *job* file called *my-job.job*.
 
-MyCluster Job Scheduler
------------------------
+The *my-job.job* file can be called whatever you like, but avoid the use of spaces and other special characters in the title. The *project* is a billing code used on the system.  If you do not know what this code should be, ask your system administrator.
 
-zCFD is distributed with the MyCluster tool, which provides a simple way to interface with a range of job schedulers.
+The *jobqueue* is the name of the local `job scheduler <http://en.wikipedia.org/wiki/Job_scheduler>`_ on the system (for example *slurm*, *moab* or *pbs*).  To find out which local job scheduler is running on your system, type:
 
-To use MyCluster initialise the zCFD command line environment as described above then use the MyCluster interface to generate, submit and monitor your job.
+.. code-block:: bash
+
+    (zCFD): mycluster -q
+
+This will also provide a list of *job queues*, and show how much resource is currently available on each.
+
+The *ntasks* setting is the total number of processors (sockets) that you want to use. For zCFD this will be equal to the number of mesh partitions that are generated. The number of tasks per node should match the number of compute devices per node (CPU sockets, Xeon Phi devices or Nvidia GPU devices).  Usually there are two sockets per node, so set *taskpernode* equal to 2. Your system administrator should advise if the local setup is different to this.
+
+The *script* is software specific. The *mycluster-zcfd.bsh* script is included (along with scripts for a number of other CFD codes) in the MyCluster distribution in the *share/* directory, so you do not need to alter the *script* setting if you are running zCFD.
+
+The *maxtime* setting is used to prevent failed jobs from over-running and to allow schedulers to prioritise short jobs where they can be accommodated between larger jobs.  The default setting is 12 hours *(maxtime=12)* but you can specify any amount of time in hours (up to the local queue maximum) can be used.  The actual limit will be shown in the *job* file, and it is worth checking whether this is adequate.
+
+Once created, the *job* file can be re-used for similar simulation tasks on the same computer.  If any of the parameters change (size of job, project, etc.) then you will need to create a new *job* file.
+
+To run zCFD using MyCluster, make sure that the *job* file is in the directory containing the mesh and input files, change to that directory and enter (for example):
 
 Example usage:
 
 .. code-block:: bash
 
-	mycluster --create=my-job.job --jobname=my-job --project=my-project --jobqueue=my-job-queue \
-	          --ntasks=2 --taskpernode=2 --script=mycluster-zcfd.bsh
+    (zCFD): (export PROBLEM=my-mesh.h5;\
+             export CASE=my-case;\
+             mycluster --submit=my-job.job)
 
-	(export PROBLEM=my-test.h5;export CASE=my-test.py; mycluster --submit=my-job.job)
+where *my-mesh.h5* is the name of the HDF5 mesh file and *my-case.py* is the name of the python input parameters file. This command will submit the job to the queue.
 
-Note that the *mycluster-zcfd.bsh* script is included (along with scripts for a number of other CFD codes) in the MyCluster distribution in the *share/* directory
-
-The number of tasks per node should match the number of compute devices per node (CPU sockets, Xeon Phi devices or Nvidia GPU devices)
-
-A list of available job queues can be obtained using
+To track the progress of your jobs via MyCluster, enter:
 
 .. code-block:: bash
 
-	mycluster -q
+    (zCFD): mycluster -p
 
-For a complete description of arguments use
+To delete a job from the queue, check the *Job ID* using *mycluster -p* and then enter:
 
 .. code-block:: bash
 
-	mycluster --help
+    (zCFD): mycluster -d <Job ID> 
+
+A full list of MyCluster commands can be obtained:
+
+.. code-block:: bash
+
+    (zCFD): mycluster --help
