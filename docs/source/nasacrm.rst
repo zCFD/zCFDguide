@@ -1,3 +1,10 @@
+
+NASA CRM
+--------
+
+The NASA common Research Model ....
+
+
 Overview
 ^^^^^^^^
 
@@ -21,7 +28,7 @@ Results
 ^^^^^^^
 The results are compared to experiment and to CFL3D at three angles of attack.
 
-.. figure:: images/DPWS_cp_profile.png
+.. figure:: verification/images/DPWS_cp_profile.png
 	:width: 90%
 	:align: center
 	:alt: alternate text

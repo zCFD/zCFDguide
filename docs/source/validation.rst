@@ -1,48 +1,18 @@
 Verification and Validation
 ===========================
 
-Introduction
-------------
+zCFD is verified against a set of standard test cases for every formal code release.  These test cases are publicly and fully accessible. All meshes, input files and post-processed results are included in the pack for download and use.  We include reference material and comparison with validation data via pre-populated iPython notebooks as part of the zPost repository [link - TODO].  In addition to these verification test cases, we provide a library of Example Cases [link - TODO] that may help in setting up new simulations.
 
-This Verification guide contains selected cases to which the zCFD many-core accelerated 
-Computational Fluid Dynamics solver has been applied. For each of these cases a comparison
-has been made to various compiled validation results, thus enabling the user to easily 
-discern the accuracy achieved by the solver. 
+The mesh files are much larger than the input and post-processing files, and so are stored in a publicly accessible Amazon S3 directory.  Links to the appropriate S3 files are included with each test case description.
 
-Zero Pressure Gradient Flat Plate
----------------------------------
+.. include:: verification/plate.rst
 
-.. include:: plate.rst
+.. include:: verification/cube.rst
 
-3D Lid Driven Cavity
---------------------
+.. include:: verification/naca0012.rst
 
-3D Cube
--------
+.. include:: verification/nasacrm.rst
 
-3D Elbow
---------
+.. include:: verification/cylinder.rst
 
-
-2D NACA0012
------------
-
-.. include:: naca0012.rst
-
-2D Laminar Cylinder
--------------------
-
-.. include:: cylinder.rst
-
-NASA Common Research Model
---------------------------
-
-.. include:: nasacrm.rst
-
-Ahmed Body
-----------
-
-Caradonna Tung Rotor
---------------------
-
-.. include:: caratung.rst
+.. include:: verification/caratung.rst

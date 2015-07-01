@@ -1,23 +1,39 @@
-Overview
-^^^^^^^^
 
-This case exercises the turbulence model through comparing the turbulent boundary layer profile 
-directly with theory given the absence of a pressure gradient. This test is applied to a series 
-of meshes with increasing :math:`y^{+}` in order to stress the automatic wall function implementation
+Flat Plate
+----------
+
+The zero pressure-gradient flat plat exercises the near-wall turbulence model by comparing the turbulent boundary layer profile directly with an exact analytic (theoretical) model. This test is applied to a series of meshes with decreasing numbers of cells (increasing the :math:`y^{+}`) to verify that the automatic scalable wall function is operating correctly.
 
 Conditions
 ^^^^^^^^^^
 
-.. figure:: images/plateBCpic.jpg
-	:width: 75%
+.. figure:: ./images/plateBCpic.jpg
+	:width: 100%
 	:align: center
-	:alt: alternate text
+	:alt: Flat Plat Boundary Conditions
 	:figclass: align-center
 
-	Computational domain for the turbulent flat plate flow case.
+	Computational domain for the turbulent flat plate flow case
 
 Mesh
 ^^^^
+
+The meshes for the flat plat test case are available for download here:
+
+.. code-block:: bash
+
+    > wget TODO
+
+Input Files
+^^^^^^^^^^^
+
+The input files for the flat plat test case are available for download here:
+
+.. code-block:: bash
+
+    > wget TODO
+
+
 
 Results
 ^^^^^^^

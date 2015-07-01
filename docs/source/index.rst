@@ -7,7 +7,7 @@ Welcome to the zCFD User Guide
 ==============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    overview
    formulation
@@ -17,5 +17,6 @@ Welcome to the zCFD User Guide
    meshutil
    visualisation
    validation
+   examples
 
 

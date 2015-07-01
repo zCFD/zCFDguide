@@ -198,7 +198,7 @@ div.body h3,
 div.body h4,
 div.body h5,
 div.body h6 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Myriad-Pro, Arial, Helvetica, sans-serif;
     font-weight: normal;
     margin: 30px 0px 10px 0px;
     padding: 0;
@@ -295,9 +295,6 @@ p.admonition-title:after {
 pre, tt, code {
     font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
     font-size: 0.9em;
-}
-
-img.screenshot {
 }
 
 tt.descname, tt.descclassname, code.descname, code.descclassname {
