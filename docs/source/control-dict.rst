@@ -196,6 +196,24 @@ Options
                                 },
                },
 
+.. code-block:: python
+
+    'DGeuler' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                },
+
+.. code-block:: python
+
+    'DGviscous' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                  },
+
 Material Specification
 ----------------------
 
@@ -211,7 +229,7 @@ Options
               'gamma' : 1.4,
               'gas constant' : 287.0,
               'Sutherlands const': 110.4,
-              'Prandtl No' : 0.4,
+              'Prandtl No' : 0.72,
               'Turbulent Prandtl No' : 0.9,
             },
 
