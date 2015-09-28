@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'zCFD User Guide'
-copyright = u'2014, Zenotech Ltd'
+copyright = u'2015, Zenotech Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -103,7 +103,8 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+# html_theme = 'classic'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -118,16 +119,16 @@ html_theme = 'default'
 #html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = "zCFD User Guide"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = 'images/ZCFD_Mark_CMYK.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-#html_favicon = None
+html_favicon = 'images/fav.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -137,40 +138,44 @@ html_static_path = ['_static']
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
-#html_extra_path = []
+html_extra_path = []
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
-#html_last_updated_fmt = '%b %d, %Y'
+html_last_updated_fmt = '%b %d, %Y'
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
-#html_use_smartypants = True
+html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    '**': [
+           'navigation.html', 'searchbox.html',
+           ]
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
-#html_additional_pages = {}
+html_additional_pages = {}
 
 # If false, no module index is generated.
-#html_domain_indices = True
+html_domain_indices = True
 
 # If false, no index is generated.
-#html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
+html_show_sourcelink = True
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
+html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-#html_show_copyright = True
+html_show_copyright = True
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
@@ -188,13 +193,25 @@ htmlhelp_basename = 'zCFDguidedoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+# Note Zenotech colours (Orange = RBG (223, 131, 38) = (0.871, 0.512, 0.148), (Charcoal = RGB (79, 72, 68) = (0.309, 0.281, 0.266)))
+'preamble': '\\definecolor{TitleColor}{rgb}{0.871, 0.512, 0.148} \\definecolor{InnerLinkColor}{rgb}{0.871, 0.512, 0.148} \\definecolor{OuterLinkColor}{rgb}{0.871, 0.512, 0.148} \\definecolor{VerbatimColor}{rgb}{1,1,1} \\definecolor{VerbatimBorderColor}{rgb}{0.871, 0.512, 0.148}',
+
+# Font package
+#'fontpkg': '\\usepackage{times}',
+#'fontpkg': '\\usepackage{bookman}',
+#'fontpkg': '\\usepackage{newcent}',
+#'fontpkg': '\\usepackage{charter}',
+'fontpkg': '\\usepackage{fourier}',
+#'fontpkg': '\\usepackage{eulervm}',
+#'fontpkg': '\\usepackage{helvet}',
+#'fontpkg': '\\usepackage{mathpazo}',
+#'fontpkg': '\\usepackage{mathptmx}',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -207,7 +224,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = 'images/ZCFD_Mark_CMYK.eps'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
