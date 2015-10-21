@@ -136,6 +136,8 @@ The mesh is automatically coarsened by merging cells on successive layers in ord
 Polynomial Multigrid
 ^^^^^^^^^^^^^^^^^^^^
 
+The polynomial basis on which the solution is computed can be successively coarsened, thus allowing the solution to be evolved quicker due to weakened stability restrictions at lower polynomial orders. This does not alter the accuracy of the solution on the highest polynomial order.
+
 .. code-block:: python
 
     # Switch on polynomial multigrid (defaults to false)
