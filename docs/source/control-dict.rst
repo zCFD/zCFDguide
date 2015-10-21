@@ -132,6 +132,16 @@ The mesh is automatically coarsened by merging cells on successive layers in ord
     # Advanced: Prolongation factor for transported quantities
     'prolong transport factor' : 0.3,
 
+
+Polynomial Multigrid
+^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    # Switch on polynomial multigrid (defaults to false)
+    'multipoly' : 'true', 
+
+
 CFL
 ^^^
 
@@ -147,6 +157,8 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
     'cfl coarse' : 2.0,
+    # Control of CFL for polynomial multigrid (from highest to lowest order)
+    'multipolycfl' : [2.0,2.0,2.0],
 
 Cycles
 ^^^^^^
@@ -214,6 +226,8 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                                 },
                },
 
+High order strong form Discontinuous Galerkin/Flux Reconstruction
+
 .. code-block:: python
 
     'DGeuler' : {
@@ -226,6 +240,15 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
 .. code-block:: python
 
     'DGviscous' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                  },
+
+.. code-block:: python
+
+    'DGLES' : {
                    # Spatial polynomial order 0,1,2,3
                    'order' : 2,
                    # Use low speed mach preconditioner
@@ -336,6 +359,13 @@ The user can also provide functions to specify a 'wall-function' - or the turbul
                            'z0'  : -0.75,
                           },
                 },
+
+.. code-block:: python
+
+    'profile' : {
+                 'field' : 'inflow_field.vtp',
+                },
+
 
 Certain conditions are specified relative to a reference set of conditions
 
@@ -604,6 +634,39 @@ or
                            'vector' : [1.0,0.0,0.0],
                           },
              },
+
+
+Fluid Zones
+-----------
+
+The fluidic zone properties are defined using consecutively numbered blocks like
+
+.. code-block:: python
+
+    'FZ_1' : {....},
+    'FZ_2' : {....},
+    'FZ_3' : {....},
+
+
+For actuator disk zones
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'disc',
+            'def':'T38-248.75.vtp',
+            'thrust coefficient':0.84,
+            'tip speed ratio':6.0,
+            'centre':[-159.34009325,-2161.73165187,70.0],
+            'up':[0.0,0.0,1.0],
+            'normal':[-1.0,0.0,0.0],
+            'inner radius':2.0,
+            'outer radius':40.0,
+    },
+
+
+For rotating zones
+
 
 
 Reporting
