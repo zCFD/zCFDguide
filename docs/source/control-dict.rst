@@ -496,6 +496,30 @@ or
                     'origin' : [0.0,0.0,0.0],
     },
 
+
+Wall temperature
+
+.. code-block:: python
+
+    'temperature' : {
+                      # Temperature in Kelvin
+                      'scalar' : 280.0, 
+    },
+
+or
+
+.. code-block:: python
+
+    'temperature' : {
+                      # Temperature field specified as a VTK file
+                      'field' : 'temperate.vtp', 
+    },
+
+.. note::
+    
+    The temperature at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the temperature 
+    value looked up in a node based scalar array called 'Temperature'
+
 Farfield
 ^^^^^^^^
 
