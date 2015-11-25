@@ -380,6 +380,8 @@ Certain conditions are specified relative to a reference set of conditions
     'total temperature ratio' : 1.0,
     # Mach number
     'mach' : 0.5,
+    # Direction vector
+    'vector' : [1.0,0.0,0.0],
 
 .. code-block:: python
 
