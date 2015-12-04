@@ -63,7 +63,42 @@ Initial conditions are used to set the flow variable values in all cells at the 
     # Initial conditions
     'initial' : 'IC_2',
 
+or
+
+.. code-block:: python
+
+    # Initial conditions
+    'initial' : {
+                  # Name of initial condition
+                  'name' : 'IC_1',
+                  # User defined function (optional)
+                  'func' : my_initialisation,
+                },
+
 .. seealso:: See `Initial Conditions`_
+
+Example User Defined Initialisation Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    def my_initialisation(**kwargs):
+
+        # Dimensional primitive variables
+        pressure = kwargs['pressure']
+        temperature = kwargs['temperature']
+        velocity = kwargs['velocity']
+        wall_distance = kwargs['wall_distance']
+        location = kwargs['location']
+
+        if location[0] > 10.0:
+          velocity[0] *= 2.0
+
+        # Return a dictionary with user defined quantity.
+        # Same schema as above
+        return { 'velocity' : velocity }
+
+
 
 To restart from a previous solution
 
