@@ -141,7 +141,11 @@ Time accurate (unsteady) simulation control
                  },
 
 Solver scheme
-^^^^^^^^^^^^^
+-------------
+
+Runge Kutta
+^^^^^^^^^^^
+
 .. code-block:: python
 
     'scheme' : {
@@ -150,6 +154,24 @@ Solver scheme
                  # Number of RK stages 
                  'stage': 5,
                },
+
+LU-SGS
+^^^^^^
+
+.. code-block:: python
+
+    'scheme' : {
+                 # 
+                 'name' : 'lu-sgs',
+               },
+    'lu-sgs' : {
+                'Number Of SGS Cycles' : '7',
+                'Min CFL' : 10.0,
+                'Max CFL' : 500.0,
+                'Jacobian Update Frequency' : 5,
+                'CFL growth' : 1.25
+               },
+
 
 Multigrid
 ^^^^^^^^^
