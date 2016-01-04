@@ -425,6 +425,10 @@ The user can also provide functions to specify a 'wall-function' - or the turbul
                  'field' : 'inflow_field.vtp',
                 },
 
+.. note::
+
+  The conditions in the VTK file are specified by node based arrays with names Pressure, Temperature, Velocity, TI and EddyViscosity. Note the field will override the conditions specified previously therefore the user can specify only the conditions that are different from default.
+
 
 Certain conditions are specified relative to a reference set of conditions
 
