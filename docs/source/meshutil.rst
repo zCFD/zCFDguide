@@ -73,11 +73,11 @@ This produces the zCFD HDF5 file. If you require support for additional element 
 UGRID Mesh Converter
 --------------------
 
-UGRID is a NASA format for meshes (ref). You must follow the naming convention (ref) for UGRID files, which describes the format and *endian-ness* of the file data ("ascii8", "b8", or "r8") depending upon which language (C or FORTRAN) was used to create the file.
+UGRID is a NASA format for meshes (ref). You must follow the naming convention (ref) for UGRID files, which describes the format and *endian-ness* of the file data ("ascii8", "b8", "lb8", or "r8") depending upon which language (C or FORTRAN) was used to create the file. The mapbc file is optional and if not provided the boundary conditions of the zones default to wall.
 
 .. code-block:: python
 
-    (zCFD): ugridconvert <filename>.[ascii8, b8, r8].ugrid <new_filename>.h5
+    (zCFD): ugridconvert <filename>.[ascii8, b8, lb8, r8].ugrid <new_filename>.h5  <filename>.mapbc
 
 This produces the zCFD HDF5 file.
 
