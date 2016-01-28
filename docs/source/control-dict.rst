@@ -414,7 +414,9 @@ The user can also provide functions to specify a 'wall-function' - or the turbul
                            'friction velocity' : 0.4,
                            'surface layer height' : -1.0,
                            'Monin-Obukhov length' : -1.0,
+                           # Non dimensional TKE/friction velocity**2
                            'TKE' : 0.928,
+                           # ground level (optional if not set wall distance is used)
                            'z0'  : -0.75,
                           },
                 },
@@ -757,6 +759,38 @@ For actuator disk zones
 For rotating zones
 
 
+For canopy model zones
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'canopy',
+            'def':'forest.vtp',
+            'func' : lad_function, # Leaf area density definition function
+    },
+
+Example Leaf Area Density Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    # Leaf Area Density function
+    # returns a list of tuples 
+    def lad_function(cell_centre_list):
+
+        lad_list = []
+        for cell in cell_centre_list:
+            x = cell[0]
+            y = cell[1]
+            z = cell[2]
+            wall_distance = cell[3]  
+
+            # Look up LAD for cell location
+
+            # Constant LAD example - Note append a tuple
+            lad_list.append((0.5,))
+
+        return lad_list
 
 Reporting
 ---------
