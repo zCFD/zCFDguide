@@ -759,7 +759,7 @@ For actuator disk zones
 For rotating zones
 
 
-For canopy model zones
+For canopy model zones based on volumetric region
 
 .. code-block:: python
 
@@ -768,6 +768,21 @@ For canopy model zones
             'def':'forest.vtp',
             'func' : lad_function, # Leaf area density definition function
     },
+
+or for forest height map based definition
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'canopy',
+            'field': 'forest_height_map.vtp',
+            'func' : lad_function, # Leaf area density definition function
+    },
+
+.. note::
+    
+    The forest height at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the forest height value looked up in a node based scalar array called 'Height'
+
 
 Example Leaf Area Density Function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
