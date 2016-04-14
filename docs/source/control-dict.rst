@@ -24,6 +24,14 @@ Define units
 
     'SI' - SI units
 
+Scale mesh
+^^^^^^^^^^
+
+.. code-block:: python
+
+    # Scale vector
+    'scale' : [1.0,1.0,1.0],
+
 Reference state
 ^^^^^^^^^^^^^^^
 
