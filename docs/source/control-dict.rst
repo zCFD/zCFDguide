@@ -1,9 +1,9 @@
 Control Dictionary
 ==================
 
-The zCFD control file is a python file that is executed a runtime. This provides a flexible way of specifying key parameters enabling user defined functions and the leverage of rich python libraries.
+The zCFD control file is a python file that is executed at runtime. This provides a flexible way of specifying key parameters enabling user defined functions and leverage of rich python libraries.
 
-A python dictionary called parameters provides the main interface to controlling zCFD
+A python dictionary called 'parameters' provides the main interface to controlling zCFD
 
 .. code-block:: python
 
@@ -24,6 +24,14 @@ Define units
 
     'SI' - SI units
 
+Scale mesh
+^^^^^^^^^^
+
+.. code-block:: python
+
+    # Scale vector
+    'scale' : [1.0,1.0,1.0],
+
 Reference state
 ^^^^^^^^^^^^^^^
 
@@ -32,15 +40,16 @@ Reference state
     # reference state
     'reference' : 'IC_1',
 
-.. seealso:: See `Initial Conditions`_ 
+.. seealso:: See `Initial Conditions`_
 
 Partitioner
 ^^^^^^^^^^^
 
+The 'metis' partitioner is used to split the computational mesh up so that the job can be run in parallel.  Other partitioners will be added in future code releases
+
 .. code-block:: python
 
     'partitioner' : 'metis',
-
 
 Safe Mode
 ^^^^^^^^^
@@ -50,19 +59,54 @@ Safe mode turns on extra checks and provides diagnosis in the case of solver sta
 .. code-block:: python
 
     # Safe mode
-    'safe' : 'false'
+    'safe' : 'false',
 
 Initialisation
 --------------
 
-Intial conditions. Defaults to reference state if not specified
+Initial conditions are used to set the flow variable values in all cells at the start of a simulation.  The initial conditions default to the reference state (above) if not specified
 
 .. code-block:: python
 
     # Initial conditions
     'initial' : 'IC_2',
 
+or
+
+.. code-block:: python
+
+    # Initial conditions
+    'initial' : {
+                  # Name of initial condition
+                  'name' : 'IC_1',
+                  # User defined function (optional)
+                  'func' : my_initialisation,
+                },
+
 .. seealso:: See `Initial Conditions`_
+
+Example User Defined Initialisation Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    def my_initialisation(**kwargs):
+
+        # Dimensional primitive variables
+        pressure = kwargs['pressure']
+        temperature = kwargs['temperature']
+        velocity = kwargs['velocity']
+        wall_distance = kwargs['wall_distance']
+        location = kwargs['location']
+
+        if location[0] > 10.0:
+          velocity[0] *= 2.0
+
+        # Return a dictionary with user defined quantity.
+        # Same schema as above
+        return { 'velocity' : velocity }
+
+
 
 To restart from a previous solution
 
@@ -72,6 +116,8 @@ To restart from a previous solution
     'restart' : 'true',
 
 Low Mach number preconditioner settings (Optional)
+
+The preconditioner is a mathematical technique for improving the speed of the solver when the fluid flow is slow compared to the speed of sound.  Use of the preconditioner does not alter the final converged solution produced by the solver.  The preconditioner factor is used to improve the robustness of the solver in regions of very low speed.
 
 .. code-block:: python
 
@@ -87,7 +133,7 @@ Time Marcher
 
     'time marching' : {....},
 
-Time accurate simulation control
+Time accurate (unsteady) simulation control
 
 .. code-block:: python
 
@@ -96,14 +142,18 @@ Time accurate simulation control
                    'total time' : 1.0,
                    # Time step in seconds
                    'time step' : 1.0,
-                   # Time accuracy (options: first or second)
+                   # Time accuracy (options: 'first' or 'second' order)
                    'order' : 'second',
-                   # Number of pseudo time cycles to run before starting time accurate simulation
+                   # Number of pseudo time (steady) cycles to run before starting time accurate simulation
                    'start' : 3000, 
                  },
 
 Solver scheme
-^^^^^^^^^^^^^
+-------------
+
+Runge Kutta
+^^^^^^^^^^^
+
 .. code-block:: python
 
     'scheme' : {
@@ -113,8 +163,29 @@ Solver scheme
                  'stage': 5,
                },
 
+LU-SGS
+^^^^^^
+
+.. code-block:: python
+
+    'scheme' : {
+                 # 
+                 'name' : 'lu-sgs',
+               },
+    'lu-sgs' : {
+                'Number Of SGS Cycles' : '7',
+                'Min CFL' : 10.0,
+                'Max CFL' : 500.0,
+                'Jacobian Update Frequency' : 5,
+                'CFL growth' : 1.25
+               },
+
+
 Multigrid
 ^^^^^^^^^
+
+The mesh is automatically coarsened by merging cells on successive layers in order to accelerate solver convergence.  This does not alter the accuracy of the solution on the finest (original) mesh.  Advanced users can control the number of geometric multigrid levels and the 'prolongation' of quantities from coarse to fine meshes.
+
 .. code-block:: python
 
     # Maximum number of meshes (including fine mesh)
@@ -126,34 +197,57 @@ Multigrid
     # Advanced: Prolongation factor for transported quantities
     'prolong transport factor' : 0.3,
 
+
+Polynomial Multigrid
+^^^^^^^^^^^^^^^^^^^^
+
+The polynomial basis on which the solution is computed can be successively coarsened, thus allowing the solution to be evolved quicker due to weakened stability restrictions at lower polynomial orders. This does not alter the accuracy of the solution on the highest polynomial order.
+
+.. code-block:: python
+
+    # Switch on polynomial multigrid (defaults to false)
+    'multipoly' : 'true', 
+
+
 CFL
 ^^^
+
+The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step that the solver uses to reach a converged solution. The larger the CFL number, the faster the solver will run but the less stable it will be.  The default values should be appropriate for most cases, but for lower-quality meshes or very complex geometries it may be necessary to use lower values (e.g. CFL of 1.0).  In such cases it may also be helpful to turn off Multigrid (above) by setting the maximum number of meshes to 0.
+
 .. code-block:: python
 
     # Default CFL number for all equations 
-    'cfl': 2.5,
+    'cfl': 2.5
+    # Optional: Start small and increase the CFL each cycle by a growth factor up to the 'cfl' value
+    'ramp': { 'initial': 1.0, 'growth': 1.1 },
     # Optional: Override CFL number for transported quantities 
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
     'cfl coarse' : 2.0,
+    # Control of CFL for polynomial multigrid (from highest to lowest order)
+    'multipolycfl' : [2.0,2.0,2.0],
 
 Cycles
 ^^^^^^
+
+For steady-state simulations, the number of pseudo time cycles is the same as the number of steps that the solver should use to reach a converged solution.  Note that the solver uses local pseudo time-stepping (the time-step varies according to local conditions) so any intermediate solution is not necessarily time-accurate.
+
+For unsteady (time-accurate) simulations, zCFD uses 'dual time-stepping' to advance the solution in time.  For unsteady simulations, the number of pseudo time cycles determines the number of inner iterations that the solver uses to converge each real time step.
+
 .. code-block:: python
 
     # Number of pseudo time cyles 
     'cycles' : 5000,
-
-
 
 Equations
 ---------
 
 .. code-block:: python
 
+    # Governing equations to be used (options: RANS, euler, viscous)
     'equations' : 'RANS',
 
-Options
+Compressible Euler flow is inviscid (no viscosity and hence no turbulence).  The compressible Euler equations are appropriate when modelling flows where momentum significantly dominates viscosity - for example at very high speed. The computational mesh used for Euler flow does not need to resolve the flow detail in the boundary layer and hence will generally have far fewer cells than the corresponding viscous mesh would have.
 
 .. code-block:: python
 
@@ -166,6 +260,8 @@ Options
               'precondition' : 'true',                                          
             },
 
+The viscous (laminar) equations model flow that is viscous but not turbulent.  The Reynolds number (http://en.wikipedia.org/wiki/Reynolds_number) of a flow regime determines whether or not the flow will be turbulent. The computational mesh for a viscous flow does have to resolve the boundary layer, but the solver will run faster as fewer equations are being included.
+
 .. code-block:: python
 
     'viscous' : {
@@ -177,6 +273,7 @@ Options
                   'precondition' : 'true',                                          
                 },
 
+The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
 
 .. code-block:: python
 
@@ -196,8 +293,39 @@ Options
                                 },
                },
 
+High order strong form Discontinuous Galerkin/Flux Reconstruction
+
+.. code-block:: python
+
+    'DGeuler' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                },
+
+.. code-block:: python
+
+    'DGviscous' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                  },
+
+.. code-block:: python
+
+    'DGLES' : {
+                   # Spatial polynomial order 0,1,2,3
+                   'order' : 2,
+                   # Use low speed mach preconditioner
+                   'precondition' : 'true',
+                  },
+
 Material Specification
 ----------------------
+
+The user can specify any fluid material properties by following the (default) scheme for 'air':
 
 .. code-block:: python
 
@@ -211,7 +339,7 @@ Options
               'gamma' : 1.4,
               'gas constant' : 287.0,
               'Sutherlands const': 110.4,
-              'Prandtl No' : 0.4,
+              'Prandtl No' : 0.72,
               'Turbulent Prandtl No' : 0.9,
             },
 
@@ -245,8 +373,7 @@ Each block can contain the following options
             'Mach' : 0.20,
           },
 
-Define dynamic viscosity at the static temperature previously specified.
-This can be specified either as a dimensional quantity or by a Reynolds number and reference length
+Dynamic (shear, absolute or molecular) viscosity should be defined at the static temperature previously specified.  This can be specified either as a dimensional quantity or by a Reynolds number and reference length
 
 .. code-block:: python
   
@@ -262,8 +389,7 @@ or
     # Reference length 
     'Reference Length' : 1.0, 
 
-Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{'}` to the mean flow velocity. A turbulence intensity of
-1% is considered low and greater than 10% is considered high.   
+Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{'}` to the mean flow velocity. A turbulence intensity of 1% is considered low and greater than 10% is considered high.
 
 .. code-block:: python
 
@@ -286,6 +412,8 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
     # Eddy viscosity ratio
     'eddy viscosity ratio': 0.1,
 
+The user can also provide functions to specify a 'wall-function' - or the turbulence viscosity profile near a boundary.  For example an atmospheric boundary layer (ABL) could be specified like this:
+
 .. code-block:: python
 
     'profile' : {
@@ -294,12 +422,25 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
                            'friction velocity' : 0.4,
                            'surface layer height' : -1.0,
                            'Monin-Obukhov length' : -1.0,
+                           # Non dimensional TKE/friction velocity**2
                            'TKE' : 0.928,
+                           # ground level (optional if not set wall distance is used)
                            'z0'  : -0.75,
                           },
                 },
 
-Certain conditions are specified relative to a reference set of conditons
+.. code-block:: python
+
+    'profile' : {
+                 'field' : 'inflow_field.vtp',
+                },
+
+.. note::
+
+    The conditions in the VTK file are specified by node based arrays with names 'Pressure', 'Temperature', 'Velocity', 'TI' and 'EddyViscosity'. Note the field will override the conditions specified previously therefore the user can specify only the conditions that are different from default.
+
+
+Certain conditions are specified relative to a reference set of conditions
 
 .. code-block:: python
 
@@ -310,6 +451,8 @@ Certain conditions are specified relative to a reference set of conditons
     'total temperature ratio' : 1.0,
     # Mach number
     'mach' : 0.5,
+    # Direction vector
+    'vector' : [1.0,0.0,0.0],
 
 .. code-block:: python
 
@@ -337,8 +480,12 @@ Boundary condition properties are defined using consecutively numbered blocks li
     'BC_1' : {....},
     'BC_2' : {....},
 
+.. _wall:
+
 Wall
 ^^^^
+
+zCFD will automatically detect zone types and numbers in a number of mesh formats, and assign appropriate boundary conditions. The type tags follow the Fluent convention (wall = 3, etc), and if present no further information is required.  Alternatively, the mesh format may contain explicitly numbered zones (which can be determined by inspecting the mesh).  In this case, the user can specify the list of zone numbers for each boundary condition 'type' and 'kind' (see below).
 
 .. code-block:: python
 
@@ -357,7 +504,7 @@ For slip walls use
 
     'kind' : 'slip',
 
-For no slip walls  and low Reynolds number :math:`(y^{+} \leq 1)` RANS meshes use
+For no slip walls and low Reynolds number :math:`(y^{+} \leq 1)` RANS meshes use
 
 .. code-block:: python
 
@@ -378,7 +525,7 @@ Roughness specification
                     'type' : 'height',
                     # Constant roughness
                     'scalar' : 0.001,
-                    # Roughnes field specified as a VTK file
+                    # Roughness field specified as a VTK file
                     'field' : 'roughness.vtp',
                   },
 
@@ -388,6 +535,8 @@ Roughness specification
     value looked up in a node based scalar array called 'Roughness'
 
 Wall velocity
+
+The wall can itself be moving with a prescribed linear (or rotating) velocity
 
 .. code-block:: python
 
@@ -420,8 +569,34 @@ or
                     'origin' : [0.0,0.0,0.0],
     },
 
+
+Wall temperature
+
+.. code-block:: python
+
+    'temperature' : {
+                      # Temperature in Kelvin
+                      'scalar' : 280.0, 
+    },
+
+or
+
+.. code-block:: python
+
+    'temperature' : {
+                      # Temperature field specified as a VTK file
+                      'field' : 'temperate.vtp', 
+    },
+
+.. note::
+    
+    The temperature at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the temperature 
+    value looked up in a node based scalar array called 'Temperature'
+
 Farfield
 ^^^^^^^^
+
+The farfield boundary condition can automatically determine whether the flow is locally an inflow or an outflow by solving a Riemann equation.
 
 .. code-block:: python
 
@@ -560,8 +735,90 @@ or
              },
 
 
+Fluid Zones
+-----------
+
+The fluidic zone properties are defined using consecutively numbered blocks like
+
+.. code-block:: python
+
+    'FZ_1' : {....},
+    'FZ_2' : {....},
+    'FZ_3' : {....},
+
+
+For actuator disk zones
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'disc',
+            'def':'T38-248.75.vtp',
+            'thrust coefficient':0.84,
+            'tip speed ratio':6.0,
+            'centre':[-159.34009325,-2161.73165187,70.0],
+            'up':[0.0,0.0,1.0],
+            'normal':[-1.0,0.0,0.0],
+            'inner radius':2.0,
+            'outer radius':40.0,
+    },
+
+
+For rotating zones
+
+
+For canopy model zones based on volumetric region
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'canopy',
+            'def':'forest.vtp',
+            'func' : lad_function, # Leaf area density definition function
+    },
+
+or for forest height map based definition
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'canopy',
+            'field': 'forest_height_map.vtp',
+            'func' : lad_function, # Leaf area density definition function
+    },
+
+.. note::
+    
+    The forest height at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the forest height value looked up in a node based scalar array called 'Height'
+
+
+Example Leaf Area Density Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    # Leaf Area Density function
+    # returns a list of tuples 
+    def lad_function(cell_centre_list):
+
+        lad_list = []
+        for cell in cell_centre_list:
+            x = cell[0]
+            y = cell[1]
+            z = cell[2]
+            wall_distance = cell[3]  
+
+            # Look up LAD for cell location
+
+            # Constant LAD example - Note append a tuple
+            lad_list.append((0.5,))
+
+        return lad_list
+
 Reporting
 ---------
+
+In addition to standard flow field outputs (see below), zCFD can provide information at monitor points in the flow domain, and integrated forces across all parallel partitions
 
 .. code-block:: python
 
@@ -612,6 +869,8 @@ Example Transformation Function
 
 Output
 ------
+
+For solver efficiency, zCFD outputs the raw flow field data (plus any user-defined variables) to each parallel partition without re-combining the output files  
 
 .. code-block:: python
 
