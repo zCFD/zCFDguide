@@ -775,6 +775,16 @@ For canopy model zones based on volumetric region
             'type':'canopy',
             'def':'forest.vtp',
             'func' : lad_function, # Leaf area density definition function
+
+            # Drag coefficient
+            'cd': 0.25,
+
+            # Canopy model constants
+            'beta_p' : 0.17,
+            'beta_d': 3.37,
+            'Ceps_4': 0.9,
+            'Ceps_5': 0.9,
+
     },
 
 or for forest height map based definition
