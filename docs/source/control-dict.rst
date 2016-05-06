@@ -776,10 +776,10 @@ For canopy model zones based on volumetric region
             'def':'forest.vtp',
             'func' : lad_function, # Leaf area density definition function
 
-            # Drag coefficient
+            # Drag coefficient (default)
             'cd': 0.25,
 
-            # Canopy model constants
+            # Canopy model constants (default)
             'beta_p' : 0.17,
             'beta_d': 3.37,
             'Ceps_4': 0.9,
@@ -796,6 +796,8 @@ or for forest height map based definition
             'field': 'forest_height_map.vtp',
             'func' : lad_function, # Leaf area density definition function
     },
+
+The default canopy model constants are from Da Costa (2007). To recover the Svensson model use beta_p = 1.0, beta_d = 0, Ceps_4=1.95, Ceps_5 = 0
 
 .. note::
     
