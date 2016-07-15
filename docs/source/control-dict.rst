@@ -174,10 +174,14 @@ LU-SGS
                },
     'lu-sgs' : {
                 'Number Of SGS Cycles' : '7',
-                'Min CFL' : 10.0,
+                'Min CFL' : 1.0,
                 'Max CFL' : 500.0,
                 'Jacobian Update Frequency' : 5,
-                'CFL growth' : 1.25
+                'CFL growth' : 1.05,
+                'Include Backward Sweep' : True,
+                'Include Relaxation' : True,
+                'Jacobian Epsilon' : 1.0e-08,
+                'Use Rusanov Flux For Jacobian' : 'false',
                },
 
 
