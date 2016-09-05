@@ -19,5 +19,6 @@ Welcome to the zCFD User Guide
    visualisation
    validation
    examples
+   utilities
 
 
