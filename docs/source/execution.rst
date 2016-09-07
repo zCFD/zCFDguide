@@ -48,3 +48,9 @@ It is also recommended to always use any computational nodes in exclusive mode t
 
 Alternatively, :ref:`mycluster` is a powerful tool for setting up, running and monitoring zCFD jobs on a range of schedulers.  We recommend this tool, and it is provided as part of the zCFD environment.
 
+.. code-block:: bash
+	
+    # PROBLEM_NAME is the name of the hdf5 file containing the mesh
+    # CASE_NAME is the name of the python control 
+    
+    cluster_run -p $PROBLEM_NAME -c $CASE_NAME -j mycluster_job.job

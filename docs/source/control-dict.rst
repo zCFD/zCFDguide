@@ -174,10 +174,14 @@ LU-SGS
                },
     'lu-sgs' : {
                 'Number Of SGS Cycles' : '7',
-                'Min CFL' : 10.0,
+                'Min CFL' : 1.0,
                 'Max CFL' : 500.0,
                 'Jacobian Update Frequency' : 5,
-                'CFL growth' : 1.25
+                'CFL growth' : 1.05,
+                'Include Backward Sweep' : True,
+                'Include Relaxation' : True,
+                'Jacobian Epsilon' : 1.0e-08,
+                'Use Rusanov Flux For Jacobian' : 'false',
                },
 
 
@@ -775,6 +779,16 @@ For canopy model zones based on volumetric region
             'type':'canopy',
             'def':'forest.vtp',
             'func' : lad_function, # Leaf area density definition function
+
+            # Drag coefficient (default)
+            'cd': 0.25,
+
+            # Canopy model constants (default)
+            'beta_p' : 0.17,
+            'beta_d': 3.37,
+            'Ceps_4': 0.9,
+            'Ceps_5': 0.9,
+
     },
 
 or for forest height map based definition
@@ -786,6 +800,8 @@ or for forest height map based definition
             'field': 'forest_height_map.vtp',
             'func' : lad_function, # Leaf area density definition function
     },
+
+The default canopy model constants are from Da Costa (2007). To recover the Svensson model use beta_p = 1.0, beta_d = 0, Ceps_4=1.95, Ceps_5 = 0
 
 .. note::
     

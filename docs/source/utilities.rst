@@ -1,0 +1,9 @@
+.. _utilities:
+
+Utilities
+=========
+
+zCFD is bundled with a number of utility functions to streamline specific workflows:
+
+.. include:: windfarm.rst
+
