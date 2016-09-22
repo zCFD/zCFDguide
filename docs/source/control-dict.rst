@@ -771,6 +771,8 @@ For actuator disk zones
             'normal':[-1.0,0.0,0.0],
             'inner radius':2.0,
             'outer radius':40.0,
+            # Location of reference conditions used to calculate thrust from Ct
+            'reference point': [1.0,1.0,1.0],
     },
 
 
