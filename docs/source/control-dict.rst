@@ -294,6 +294,8 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                                   'model' : 'sst',
                                   # betastar turbulence closure constant
                                   'betastar' : 0.09,
+                                  # turn off mu_t limiter (default on)
+                                  'limit mut' : 'false',
                                 },
                },
 
@@ -399,6 +401,8 @@ Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{
 
     # Turbulence intensity %
     'turbulence intensity': 0.01,
+    # Turbulence intensity for sustainment %
+    'ambient turbulence intensity': 0.01,
 
 The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow.
 For external flows this ratio varies from  0.1 to 1 (wind tunnel 1 to 10)
@@ -415,6 +419,8 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
 
     # Eddy viscosity ratio
     'eddy viscosity ratio': 0.1,
+    # Eddy viscosity ratio for sustainment
+    'ambient eddy viscosity ratio': 0.1,
 
 The user can also provide functions to specify a 'wall-function' - or the turbulence viscosity profile near a boundary.  For example an atmospheric boundary layer (ABL) could be specified like this:
 
@@ -765,6 +771,8 @@ For actuator disk zones
             'normal':[-1.0,0.0,0.0],
             'inner radius':2.0,
             'outer radius':40.0,
+            # Location of reference conditions used to calculate thrust from Ct
+            'reference point': [1.0,1.0,1.0],
     },
 
 
