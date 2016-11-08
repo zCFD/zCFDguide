@@ -443,6 +443,8 @@ The user can also provide functions to specify a 'wall-function' - or the turbul
 
     'profile' : {
                  'field' : 'inflow_field.vtp',
+                 # Localise field using wall distance rather that z coordinate
+                 'local profile' : 'true',
                 },
 
 .. note::
@@ -616,7 +618,7 @@ The farfield boundary condition can automatically determine whether the flow is 
     'zone' : [0,1,2,3],
     # Boundary condition type
     'type' : 'farfield',
-    # Kind of farfield
+    # Kind of farfield options (riemann, pressure or supersonic)
     'kind' : 'riemann',
     # Farfield conditions
     'condition' : 'IC_1',
