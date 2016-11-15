@@ -923,6 +923,10 @@ For solver efficiency, zCFD outputs the raw flow field data (plus any user-defin
                       'surface variables': ['V','p'],
                       # Field variables to be output
                       'volume variables' : ['V','p'],
+                      # Surface interpolation - interpolates surface values to points in supplied meshes
+                      'surface interpolate' : ['surface_mesh.vtp'],
+                      # Volume interpolation - interpolates cell values to points in supplied meshes
+                      'volume interpolate' : ['mesh.vtp', 'mesh.vtu'],
                       # Output frequency
                       'frequency' : 100,
                     },   
