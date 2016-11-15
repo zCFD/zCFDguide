@@ -31,7 +31,7 @@ import youtube
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
-    'sphinx.ext.pngmath',
+    #'sphinx.ext.imgmath',
     'sphinx.ext.mathjax',
 ]
 
