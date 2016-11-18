@@ -222,8 +222,6 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
 
     # Default CFL number for all equations 
     'cfl': 2.5
-    # Optional: Start small and increase the CFL each cycle by a growth factor up to the 'cfl' value
-    'ramp': { 'initial': 1.0, 'growth': 1.1 },
     # Optional: Override CFL number for transported quantities 
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
@@ -308,6 +306,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter
+                   'LDG upwind parameter': 0.5,
                 },
 
 .. code-block:: python
@@ -317,6 +321,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter default 0.5
+                   'LDG upwind parameter': 0.5,
                   },
 
 .. code-block:: python
@@ -326,7 +336,13 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
-                  },
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter default 0.5
+                   'LDG upwind parameter': 0.5,
+                },
 
 Material Specification
 ----------------------
@@ -907,6 +923,10 @@ For solver efficiency, zCFD outputs the raw flow field data (plus any user-defin
                       'surface variables': ['V','p'],
                       # Field variables to be output
                       'volume variables' : ['V','p'],
+                      # Surface interpolation - interpolates surface values to points in supplied meshes
+                      'surface interpolate' : ['surface_mesh.vtp'],
+                      # Volume interpolation - interpolates cell values to points in supplied meshes
+                      'volume interpolate' : ['mesh.vtp', 'mesh.vtu'],
                       # Output frequency
                       'frequency' : 100,
                     },   
