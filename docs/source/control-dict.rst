@@ -222,8 +222,6 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
 
     # Default CFL number for all equations 
     'cfl': 2.5
-    # Optional: Start small and increase the CFL each cycle by a growth factor up to the 'cfl' value
-    'ramp': { 'initial': 1.0, 'growth': 1.1 },
     # Optional: Override CFL number for transported quantities 
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
@@ -294,6 +292,8 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                                   'model' : 'sst',
                                   # betastar turbulence closure constant
                                   'betastar' : 0.09,
+                                  # turn off mu_t limiter (default on)
+                                  'limit mut' : 'false',
                                 },
                },
 
@@ -306,6 +306,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter
+                   'LDG upwind parameter': 0.5,
                 },
 
 .. code-block:: python
@@ -315,6 +321,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter default 0.5
+                   'LDG upwind parameter': 0.5,
                   },
 
 .. code-block:: python
@@ -324,7 +336,13 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'order' : 2,
                    # Use low speed mach preconditioner
                    'precondition' : 'true',
-                  },
+                   # c11 stability parameter - dafault 0.0
+                   'c11 stability parameter': 0.0,
+                   # c11 stability parameter for transported variables - default 0.0 
+                   'c11 stability parameter transport': 0.0,
+                   # LDG upwind parameter default 0.5
+                   'LDG upwind parameter': 0.5,
+                },
 
 Material Specification
 ----------------------
@@ -399,6 +417,8 @@ Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{
 
     # Turbulence intensity %
     'turbulence intensity': 0.01,
+    # Turbulence intensity for sustainment %
+    'ambient turbulence intensity': 0.01,
 
 The eddy viscosity ratio :math:`(\mu_t/\mu)` varies depending type of flow.
 For external flows this ratio varies from  0.1 to 1 (wind tunnel 1 to 10)
@@ -415,6 +435,8 @@ by the characteristic lengths of the geometry (e.g. The height of the channel or
 
     # Eddy viscosity ratio
     'eddy viscosity ratio': 0.1,
+    # Eddy viscosity ratio for sustainment
+    'ambient eddy viscosity ratio': 0.1,
 
 The user can also provide functions to specify a 'wall-function' - or the turbulence viscosity profile near a boundary.  For example an atmospheric boundary layer (ABL) could be specified like this:
 
@@ -437,6 +459,8 @@ The user can also provide functions to specify a 'wall-function' - or the turbul
 
     'profile' : {
                  'field' : 'inflow_field.vtp',
+                 # Localise field using wall distance rather that z coordinate
+                 'local profile' : 'true',
                 },
 
 .. note::
@@ -610,7 +634,7 @@ The farfield boundary condition can automatically determine whether the flow is 
     'zone' : [0,1,2,3],
     # Boundary condition type
     'type' : 'farfield',
-    # Kind of farfield
+    # Kind of farfield options (riemann, pressure or supersonic)
     'kind' : 'riemann',
     # Farfield conditions
     'condition' : 'IC_1',
@@ -765,6 +789,8 @@ For actuator disk zones
             'normal':[-1.0,0.0,0.0],
             'inner radius':2.0,
             'outer radius':40.0,
+            # Location of reference conditions used to calculate thrust from Ct
+            'reference point': [1.0,1.0,1.0],
     },
 
 
@@ -897,6 +923,10 @@ For solver efficiency, zCFD outputs the raw flow field data (plus any user-defin
                       'surface variables': ['V','p'],
                       # Field variables to be output
                       'volume variables' : ['V','p'],
+                      # Surface interpolation - interpolates surface values to points in supplied meshes
+                      'surface interpolate' : ['surface_mesh.vtp'],
+                      # Volume interpolation - interpolates cell values to points in supplied meshes
+                      'volume interpolate' : ['mesh.vtp', 'mesh.vtu'],
                       # Output frequency
                       'frequency' : 100,
                     },   

@@ -17,8 +17,6 @@ Welcome to the zCFD User Guide
    control-dict
    meshutil
    visualisation
-   validation
-   examples
    utilities
 
 
