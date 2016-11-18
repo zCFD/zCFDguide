@@ -37,7 +37,7 @@ Smartlaunch uses this information to calculate the number of OpenMP threads to s
 
 The optimum number of execution tasks ($NTASKS below) should match the total number of sockets (usually two per node) **not** the number of cores.  This configuration will also work for systems with accelerators present.
 
-It is also recommended to always use any computational nodes in exclusive mode to achieve the best performance. TODO - how do we ensure this?
+It is also recommended to always use any computational nodes in exclusive mode to achieve the best performance. 
 
 .. code-block:: bash
 	
