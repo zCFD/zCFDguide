@@ -12,6 +12,7 @@ Welcome to the zCFD User Guide
    overview
    formulation
    license
+   installation
    execution
    mycluster
    control-dict
