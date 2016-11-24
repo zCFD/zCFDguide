@@ -222,7 +222,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'zCFDguide.tex', u'zCFDguide Documentation',
+  ('index', 'zCFDguide-'+str(version)+'.tex', u'zCFDguide Documentation',
    u'Zenotech Ltd', 'manual'),
 ]
 
