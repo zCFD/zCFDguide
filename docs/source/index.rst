@@ -6,6 +6,9 @@
 Welcome to the zCFD User Guide
 ==============================
 
+Version: |version|
+------------------
+
 .. toctree::
    :maxdepth: 2
 

@@ -344,6 +344,18 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'LDG upwind parameter': 0.5,
                 },
 
+DG Order Specification
+----------------------
+
+.. code-block:: python
+
+    'cell order' : [{'type' : 'wall distance',
+                     'order' : 0,
+                     'distance' : 1000.0},
+                   {'type' : 'wall distance',
+                    'order' : 1,
+                    'distance' : 2.0}],
+
 Material Specification
 ----------------------
 
