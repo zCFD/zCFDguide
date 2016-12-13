@@ -5,16 +5,16 @@ zCFD uses unstructured meshes written in an `HDF5 <http://www.hdfgroup.org/HDF5/
 
 Meshes from a wide variety of sources can be easily converted into this format as follows:
 
-OpenFOAM-2.1.x
+OpenFOAM-x.x.x
 --------------
 
-We provide a range of converters for popular mesh types via a special version of the open-source CFD code OpenFOAM, available freely for download `here <https://github.com/zenotech/OpenFOAM-2.1.x>`_
+We provide a range of converters for popular mesh types via a special version of the open-source CFD code OpenFOAM, available freely for download `here <https://github.com/zCFD/foamTozCFD.git>`_
 
-Once downloaded and installed, this version of OpenFOAM will convert a range of file formats to the zCFD format. Prior to running any of these, you will need to activate your OpenFOAM environment using
+Once downloaded and installed, the version of OpenFOAM will convert a range of file formats to the zCFD format. Prior to running any of these, you will need to activate your OpenFOAM environment using
 
 .. code-block:: python
 
-    source $FOAM_INST_DIR/OpenFOAM-2.1.x/etc/bashrc
+    source $FOAM_INST_DIR/OpenFOAM-x.x.x/etc/bashrc
 
 OpenFOAM Mesh Converter
 -----------------------
