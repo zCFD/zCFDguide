@@ -354,7 +354,17 @@ DG Order Specification
                      'distance' : 1000.0},
                    {'type' : 'wall distance',
                     'order' : 1,
-                    'distance' : 2.0}],
+                    'distance' : 2.0},
+                    {'type' : 'sphere',
+                     'order' : 0,
+                     'radius' : 1.0,
+                     'centre' : [0.0, 0.0, 0.0]},
+                    {'type' : 'cartesian',
+                     'order' : 0,
+                     # xmin, xmax, ymin, ymax, zmin, zmax
+                     'box' : [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]}
+                    ],
+
 
 Material Specification
 ----------------------
