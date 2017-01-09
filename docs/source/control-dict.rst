@@ -159,7 +159,7 @@ Runge Kutta
     'scheme' : {
                  # 
                  'name' : 'runge kutta',
-                 # Number of RK stages 
+                 # Number of RK stages 'euler' or 1, 4, 5, 'rk third order tvd'
                  'stage': 5,
                },
 
