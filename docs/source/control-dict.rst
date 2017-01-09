@@ -312,6 +312,8 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
                 },
 
 .. code-block:: python
@@ -327,6 +329,9 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
+
                   },
 
 .. code-block:: python
@@ -342,6 +347,8 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
                 },
 
 DG Order Specification
