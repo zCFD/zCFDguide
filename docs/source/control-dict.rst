@@ -825,6 +825,33 @@ For actuator disk zones
 
 For rotating zones
 
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'rotating',
+            # List of mesh zones
+            'zone' : [0, 1],
+            # rotation axis vector
+            'axis' : [1.0,0.0,0.0],
+            # rotation origin
+            'origin' : [0.0,0.0,0.0],
+            # rotation speed in rad/s
+            'omega' : 2.0,
+    },
+
+For translating zones
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'translating',
+            # List of mesh zones
+            'zone' : [0, 1],
+            # translation vector
+            'vector' : [1.0,0.0,0.0],
+            # translation Mach number
+            'Mach' : 0.1,
+    },
 
 For canopy model zones based on volumetric region
 
