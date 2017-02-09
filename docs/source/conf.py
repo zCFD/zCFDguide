@@ -266,7 +266,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'zCFDguide', u'zCFDguide Documentation',
+  ('index', 'zCFDguide-'+str(version), u'zCFDguide Documentation',
    u'Zenotech Ltd', 'zCFDguide', 'One line description of project.',
    'Miscellaneous'),
 ]
