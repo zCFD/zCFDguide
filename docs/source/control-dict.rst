@@ -373,6 +373,28 @@ DG Order Specification
                     ],
 
 
+DG Nodal locations
+------------------
+
+The location of the DG solution points can be changed from the default using the following entry. The definitions first need to be imported by including this import statement at the start of the control dictionary
+
+.. code-block:: python
+
+from zcfd.solver.util.DGNodalLocations import *
+
+
+.. code-block:: python
+
+    'Nodal Locations' : {
+                          # Options line_evenly_spaced, line_gauss_lobatto or line_gauss_legendre_lobatto
+                          'Line':  line_gauss_legendre_lobatto,
+                          # Options tet_evenly_spaced, tet_shunn_ham
+                          'Tetrahedron': tet_evenly_spaced,
+                          # Options tri_evenly_spaced, tri_shunn_ham
+                          'Tri' : tri_evenly_spaced,
+                        },
+
+
 Material Specification
 ----------------------
 
