@@ -380,7 +380,7 @@ The location of the DG solution points can be changed from the default using the
 
 .. code-block:: python
 
-from zcfd.solver.util.DGNodalLocations import *
+from zcfd.solvers.utils.DGNodalLocations import *
 
 
 .. code-block:: python
