@@ -142,9 +142,9 @@ Time accurate (unsteady) simulation control
                    'total time' : 1.0,
                    # Time step in seconds
                    'time step' : 1.0,
-                   # Time accuracy (options: 'first' or 'second' order)
+                   # Dual time step time accuracy (options: 'first' or 'second' order)
                    'order' : 'second',
-                   # Number of pseudo time (steady) cycles to run before starting time accurate simulation
+                   # Number of pseudo time (steady) cycles to run before starting dual timestep time accurate simulation
                    'start' : 3000, 
                  },
 
@@ -161,6 +161,9 @@ Runge Kutta
                  'name' : 'runge kutta',
                  # Number of RK stages 'euler' or 1, 4, 5, 'rk third order tvd'
                  'stage': 5,
+                 # Options: 'local timestepping' for steady state or dual time step time accurate
+                 #          'global timestepping' for time accurate
+                 'kind' : 'local timestepping'
                },
 
 LU-SGS
