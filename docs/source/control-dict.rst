@@ -383,7 +383,7 @@ The location of the DG solution points can be changed from the default using the
 
 .. code-block:: python
 
-from zcfd.solvers.utils.DGNodalLocations import *
+    from zcfd.solvers.utils.DGNodalLocations import *
 
 
 .. code-block:: python
@@ -1029,6 +1029,12 @@ Options
 .. code-block:: python
 
     'scripts' : ['paraview_catalyst1.py','paraview_catalyst2.py']
+
+If downstream processes need variables named using a specific naming convention the definition of a naming alias dictionary can be supplied
+
+.. code-block:: python
+
+    'variable_name_alias' : { "V" : "VELOCITY" },    
 
 
 .. topic:: Output Variables
