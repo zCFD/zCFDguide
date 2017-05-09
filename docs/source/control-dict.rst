@@ -176,15 +176,16 @@ LU-SGS
                  'name' : 'lu-sgs',
                },
     'lu-sgs' : {
-                'Number Of SGS Cycles' : '7',
+                'Number Of SGS Cycles' : '8',
                 'Min CFL' : 1.0,
-                'Max CFL' : 500.0,
-                'Jacobian Update Frequency' : 5,
+                'Max CFL' : 10.0,
+                'Jacobian Update Frequency' : 1,
                 'CFL growth' : 1.05,
                 'Include Backward Sweep' : True,
                 'Include Relaxation' : True,
                 'Jacobian Epsilon' : 1.0e-08,
-                'Use Rusanov Flux For Jacobian' : 'false',
+                'Use Rusanov Flux For Jacobian' : 'true',
+                'Finite Difference Jacobian' : 'false',
                },
 
 
@@ -1030,11 +1031,11 @@ Options
 
     'scripts' : ['paraview_catalyst1.py','paraview_catalyst2.py']
 
-If downstream processes need variables named using a specific naming convention the definition of a naming alias dictionary can be supplied
+If downstream processes need variables named using a specific convention a naming alias dictionary can be supplied
 
 .. code-block:: python
 
-    'variable_name_alias' : { "V" : "VELOCITY" },    
+    'variable_name_alias' : { "V" : "VELOCITY", },    
 
 
 .. topic:: Output Variables
