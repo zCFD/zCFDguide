@@ -24,7 +24,7 @@ from version import get_git_version
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-#needs_sphinx = '1.0'
+needs_sphinx = '1.5.5'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -266,7 +266,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'zCFDguide', u'zCFDguide Documentation',
+  ('index', 'zCFDguide-'+str(version), u'zCFDguide Documentation',
    u'Zenotech Ltd', 'zCFDguide', 'One line description of project.',
    'Miscellaneous'),
 ]

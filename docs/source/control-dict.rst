@@ -142,9 +142,9 @@ Time accurate (unsteady) simulation control
                    'total time' : 1.0,
                    # Time step in seconds
                    'time step' : 1.0,
-                   # Time accuracy (options: 'first' or 'second' order)
+                   # Dual time step time accuracy (options: 'first' or 'second' order)
                    'order' : 'second',
-                   # Number of pseudo time (steady) cycles to run before starting time accurate simulation
+                   # Number of pseudo time (steady) cycles to run before starting dual timestep time accurate simulation
                    'start' : 3000, 
                  },
 
@@ -159,8 +159,11 @@ Runge Kutta
     'scheme' : {
                  # 
                  'name' : 'runge kutta',
-                 # Number of RK stages 
+                 # Number of RK stages 'euler' or 1, 4, 5, 'rk third order tvd'
                  'stage': 5,
+                 # Options: 'local timestepping' for steady state or dual time step time accurate
+                 #          'global timestepping' for time accurate
+                 'kind' : 'local timestepping'
                },
 
 LU-SGS
@@ -173,15 +176,16 @@ LU-SGS
                  'name' : 'lu-sgs',
                },
     'lu-sgs' : {
-                'Number Of SGS Cycles' : '7',
+                'Number Of SGS Cycles' : '8',
                 'Min CFL' : 1.0,
-                'Max CFL' : 500.0,
-                'Jacobian Update Frequency' : 5,
+                'Max CFL' : 10.0,
+                'Jacobian Update Frequency' : 1,
                 'CFL growth' : 1.05,
                 'Include Backward Sweep' : True,
                 'Include Relaxation' : True,
                 'Jacobian Epsilon' : 1.0e-08,
-                'Use Rusanov Flux For Jacobian' : 'false',
+                'Use Rusanov Flux For Jacobian' : 'true',
+                'Finite Difference Jacobian' : 'false',
                },
 
 
@@ -312,6 +316,8 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
                 },
 
 .. code-block:: python
@@ -327,6 +333,9 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
+
                   },
 
 .. code-block:: python
@@ -342,6 +351,8 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
+                   # Use MUSCL reconstruction at P=0
+                   'Use MUSCL Reconstruction': False, 
                 },
 
 DG Order Specification
@@ -354,7 +365,39 @@ DG Order Specification
                      'distance' : 1000.0},
                    {'type' : 'wall distance',
                     'order' : 1,
-                    'distance' : 2.0}],
+                    'distance' : 2.0},
+                    {'type' : 'sphere',
+                     'order' : 0,
+                     'radius' : 1.0,
+                     'centre' : [0.0, 0.0, 0.0]},
+                    {'type' : 'cartesian',
+                     'order' : 0,
+                     # xmin, xmax, ymin, ymax, zmin, zmax
+                     'box' : [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]}
+                    ],
+
+
+DG Nodal locations
+------------------
+
+The location of the DG solution points can be changed from the default using the following entry. The definitions first need to be imported by including this import statement at the start of the control dictionary
+
+.. code-block:: python
+
+    from zcfd.solvers.utils.DGNodalLocations import *
+
+
+.. code-block:: python
+
+    'Nodal Locations' : {
+                          # Options line_evenly_spaced, line_gauss_lobatto or line_gauss_legendre_lobatto
+                          'Line':  line_gauss_legendre_lobatto,
+                          # Options tet_evenly_spaced, tet_shunn_ham
+                          'Tetrahedron': tet_evenly_spaced,
+                          # Options tri_evenly_spaced, tri_shunn_ham
+                          'Tri' : tri_evenly_spaced,
+                        },
+
 
 Material Specification
 ----------------------
@@ -808,6 +851,33 @@ For actuator disk zones
 
 For rotating zones
 
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'rotating',
+            # List of mesh zones
+            'zone' : [0, 1],
+            # rotation axis vector
+            'axis' : [1.0,0.0,0.0],
+            # rotation origin
+            'origin' : [0.0,0.0,0.0],
+            # rotation speed in rad/s
+            'omega' : 2.0,
+    },
+
+For translating zones
+
+.. code-block:: python
+
+    'FZ_1':{
+            'type':'translating',
+            # List of mesh zones
+            'zone' : [0, 1],
+            # translation vector
+            'vector' : [1.0,0.0,0.0],
+            # translation Mach number
+            'Mach' : 0.1,
+    },
 
 For canopy model zones based on volumetric region
 
@@ -960,6 +1030,12 @@ Options
 .. code-block:: python
 
     'scripts' : ['paraview_catalyst1.py','paraview_catalyst2.py']
+
+If downstream processes need variables named using a specific convention a naming alias dictionary can be supplied
+
+.. code-block:: python
+
+    'variable_name_alias' : { "V" : "VELOCITY", },    
 
 
 .. topic:: Output Variables
