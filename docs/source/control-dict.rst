@@ -1043,24 +1043,32 @@ If downstream processes need variables named using a specific convention a namin
    ===================== ===================== ==================================
     Variable Name         Alias                 Definition                   
    ===================== ===================== ==================================
-    temperature           T, t                                               
-    pressure              p                                                  
+    temperature           T, t 
+    temperaturegrad
+    potentialtemperature
+    pressure              p
+    gauge_pressure                                                  
     density               rho                                                
-    velocity              V, v                                               
-    cp                                          :math:`C_p=\frac{P}{0.5\rho V^2}`                            
+    velocity              V, v
+    velocitygradient                                               
+    cp
+    totalcp                                            
     mach                  m                                                  
     viscosity             mu                                                 
-    kinematicviscosity    nu                                                   
-    gauge_pressure                                                             
+    kinematicviscosity    nu                                                                                                    
     vorticity                                                                  
-    Qcriterion                                                               
+    Qcriterion
+    reynoldstress
+    helicity
+    enstrophy
+    ek
+    lesregion                                                               
     turbulenceintensity   ti                                                  
-    eddy                                                                     
-    cell_velocity                                                            
+    eddy                                                             
+    cell_velocity
+    cell_zone                                                            
     centre                                                                   
     walldistance                                                             
-    walldistancezone                                                         
-    parent                                                                   
    ===================== ===================== ==================================
 
   Surface only quantities
@@ -1074,12 +1082,16 @@ If downstream processes need variables named using a specific convention a namin
     pressuremomenty                                                          
     pressuremomentz                                                          
     frictionforce                                                            
-    frictionmoment                                                           
+    frictionmoment
+    frictionmomentx                                                          
+    frictionmomenty                                                          
+    frictionmomentz                                                                                                                     
     roughness                                                                
     ut                                                                       
     yplus                                                                    
     zone                                                                     
-    cf                                                                       
+    cf
+    facecentre                                                                       
    ===================== ===================== ================================== 
 
     
