@@ -974,6 +974,10 @@ In addition to standard flow field outputs (see below), zCFD can provide informa
                                      'transform' : my_transform,
                                      # Reference area
                                      'reference area' : 0.112032,
+                                     # Reference length
+                                     'reference length' : 1.0,
+                                     # Reference point
+                                     'reference point' : [0.0, 0.0, 0.0],
                                  },
                       },
                 },
@@ -1011,6 +1015,13 @@ For solver efficiency, zCFD outputs the raw flow field data (plus any user-defin
                       'volume interpolate' : ['mesh.vtp', 'mesh.vtu'],
                       # Output frequency
                       'frequency' : 100,
+
+                      # Start output after real time cycle
+                      'start output real time cycle' : 100,
+                      # End output after real time cycle
+                      'end output real time cycle' : 1000,
+                      # Output real time cycle frequency
+                      'output real time cycle frequency' : 10,
                     },   
 
 Options
