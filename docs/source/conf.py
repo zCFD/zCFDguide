@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'zCFD User Guide'
-copyright = u'2016, Zenotech Ltd'
+copyright = u'2014-7, Zenotech Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -179,7 +179,7 @@ html_show_sourcelink = True
 html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-html_show_copyright = u'2016, Zenotech Ltd'
+html_show_copyright = u'2014-7, Zenotech Ltd'
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
