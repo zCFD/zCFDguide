@@ -12,7 +12,7 @@ A python dictionary called 'parameters' provides the main interface to controlli
 Reference Settings
 ------------------
 
-Define units  
+Define units
 ^^^^^^^^^^^^
 
 .. code-block:: python
@@ -145,7 +145,7 @@ Time accurate (unsteady) simulation control
                    # Dual time step time accuracy (options: 'first' or 'second' order)
                    'order' : 'second',
                    # Number of pseudo time (steady) cycles to run before starting dual timestep time accurate simulation
-                   'start' : 3000, 
+                   'start' : 3000,
                  },
 
 Solver scheme
@@ -157,7 +157,7 @@ Runge Kutta
 .. code-block:: python
 
     'scheme' : {
-                 # 
+                 #
                  'name' : 'runge kutta',
                  # Number of RK stages 'euler' or 1, 4, 5, 'rk third order tvd'
                  'stage': 5,
@@ -172,7 +172,7 @@ LU-SGS
 .. code-block:: python
 
     'scheme' : {
-                 # 
+                 #
                  'name' : 'lu-sgs',
                },
     'lu-sgs' : {
@@ -197,7 +197,7 @@ The mesh is automatically coarsened by merging cells on successive layers in ord
 .. code-block:: python
 
     # Maximum number of meshes (including fine mesh)
-    'multigrid' : 10, 
+    'multigrid' : 10,
     # Number of multigrid cycles before solving on fine mesh only
     'multigrid cycles' : 5000,
     # Advanced: Prologation factor
@@ -214,7 +214,7 @@ The polynomial basis on which the solution is computed can be successively coars
 .. code-block:: python
 
     # Switch on polynomial multigrid (defaults to false)
-    'multipoly' : 'true', 
+    'multipoly' : 'true',
 
 
 CFL
@@ -224,14 +224,12 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
 
 .. code-block:: python
 
-    # Default CFL number for all equations 
+    # Default CFL number for all equations
     'cfl': 2.5
-    # Optional: Override CFL number for transported quantities 
+    # Optional: Override CFL number for transported quantities
     'cfl transport' : 1.5,
     # Optional: Override CFL number for coarse meshes
     'cfl coarse' : 2.0,
-    # Control of CFL for polynomial multigrid (from highest to lowest order)
-    'multipolycfl' : [2.0,2.0,2.0],
 
 Cycles
 ^^^^^^
@@ -242,7 +240,7 @@ For unsteady (time-accurate) simulations, zCFD uses 'dual time-stepping' to adva
 
 .. code-block:: python
 
-    # Number of pseudo time cyles 
+    # Number of pseudo time cyles
     'cycles' : 5000,
 
 Equations
@@ -263,7 +261,7 @@ Compressible Euler flow is inviscid (no viscosity and hence no turbulence).  The
               # MUSCL limiter (options: vanalbada)
               'limiter' : 'vanalbada',
               # Use low speed mach preconditioner
-              'precondition' : 'true',                                          
+              'precondition' : 'true',
             },
 
 The viscous (laminar) equations model flow that is viscous but not turbulent.  The Reynolds number (http://en.wikipedia.org/wiki/Reynolds_number) of a flow regime determines whether or not the flow will be turbulent. The computational mesh for a viscous flow does have to resolve the boundary layer, but the solver will run faster as fewer equations are being included.
@@ -275,8 +273,8 @@ The viscous (laminar) equations model flow that is viscous but not turbulent.  T
                   'order' : 'second',
                   # MUSCL limiter (options: vanalbada)
                   'limiter' : 'vanalbada',
-                  # Use low speed mach preconditioner                                            
-                  'precondition' : 'true',                                          
+                  # Use low speed mach preconditioner
+                  'precondition' : 'true',
                 },
 
 The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
@@ -288,11 +286,11 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                 'order' : 'second',
                 # MUSCL limiter (options: vanalbada)
                 'limiter' : 'vanalbada',
-                # Use low speed mach preconditioner 
-                'precondition' : 'true', 
-                # Turbulence                                        
+                # Use low speed mach preconditioner
+                'precondition' : 'true',
+                # Turbulence
                 'turbulence' : {
-                                  # turbulence model (options: 'sst') 
+                                  # turbulence model (options: 'sst')
                                   'model' : 'sst',
                                   # betastar turbulence closure constant
                                   'betastar' : 0.09,
@@ -312,12 +310,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'precondition' : 'true',
                    # c11 stability parameter - dafault 0.0
                    'c11 stability parameter': 0.0,
-                   # c11 stability parameter for transported variables - default 0.0 
+                   # c11 stability parameter for transported variables - default 0.0
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter
                    'LDG upwind parameter': 0.5,
                    # Use MUSCL reconstruction at P=0
-                   'Use MUSCL Reconstruction': False, 
+                   'Use MUSCL Reconstruction': False,
                 },
 
 .. code-block:: python
@@ -329,12 +327,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'precondition' : 'true',
                    # c11 stability parameter - dafault 0.0
                    'c11 stability parameter': 0.0,
-                   # c11 stability parameter for transported variables - default 0.0 
+                   # c11 stability parameter for transported variables - default 0.0
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
                    # Use MUSCL reconstruction at P=0
-                   'Use MUSCL Reconstruction': False, 
+                   'Use MUSCL Reconstruction': False,
 
                   },
 
@@ -347,12 +345,12 @@ High order strong form Discontinuous Galerkin/Flux Reconstruction
                    'precondition' : 'true',
                    # c11 stability parameter - dafault 0.0
                    'c11 stability parameter': 0.0,
-                   # c11 stability parameter for transported variables - default 0.0 
+                   # c11 stability parameter for transported variables - default 0.0
                    'c11 stability parameter transport': 0.0,
                    # LDG upwind parameter default 0.5
                    'LDG upwind parameter': 0.5,
                    # Use MUSCL reconstruction at P=0
-                   'Use MUSCL Reconstruction': False, 
+                   'Use MUSCL Reconstruction': False,
                 },
 
 DG Order Specification
@@ -431,7 +429,7 @@ The intial condition properties are defined using consecutively numbered blocks 
     'IC_2' : {....},
     'IC_3' : {....},
 
-Each block can contain the following options 
+Each block can contain the following options
 
 .. code-block:: python
 
@@ -446,15 +444,15 @@ Each block can contain the following options
     'V': {
             # Velocity vector
             'vector' : [1.0,0.0,0.0],
-            # Optional: specifies velocity magnitude  
+            # Optional: specifies velocity magnitude
             'Mach' : 0.20,
           },
 
 Dynamic (shear, absolute or molecular) viscosity should be defined at the static temperature previously specified.  This can be specified either as a dimensional quantity or by a Reynolds number and reference length
 
 .. code-block:: python
-  
-    # Dynamic viscosity in dimensional units 
+
+    # Dynamic viscosity in dimensional units
     'viscosity' : 1.83e-5,
 
 or
@@ -463,8 +461,8 @@ or
 
     # Reynolds number
     'Reynolds No' : 5.0e6,
-    # Reference length 
-    'Reference Length' : 1.0, 
+    # Reference length
+    'Reference Length' : 1.0,
 
 Turbulence intensity is defined as the ratio of velocity fluctuations :math:`u^{'}` to the mean flow velocity. A turbulence intensity of 1% is considered low and greater than 10% is considered high.
 
@@ -482,8 +480,8 @@ For internal flows there is greater dependence on Reynolds number as the largest
 by the characteristic lengths of the geometry (e.g. The height of the channel or diameter of the pipe). Typical values are:
 
 ======= ======= ====== ======== ======== ======== ===========
-  Re      3000   5000   10,000   15,000   20,000   > 100,000  
-  eddy    11.6   16.5   26.7     34.0     50.1      100       
+  Re      3000   5000   10,000   15,000   20,000   > 100,000
+  eddy    11.6   16.5   26.7     34.0     50.1      100
 ======= ======= ====== ======== ======== ======== ===========
 
 .. code-block:: python
@@ -544,7 +542,7 @@ Certain conditions are specified relative to a reference set of conditions
     'static pressure ratio' : 1.0,
 
 .. code-block:: python
-  
+
     'reference' : 'IC_1',
     # Mass flow ratio
     'mass flow ratio' : 1.0,
@@ -613,8 +611,8 @@ Roughness specification
                   },
 
 .. note::
-    
-    The roughness at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the roughness 
+
+    The roughness at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the roughness
     value looked up in a node based scalar array called 'Roughness'
 
 Wall velocity
@@ -631,11 +629,11 @@ The wall can itself be moving with a prescribed linear (or rotating) velocity
 Options
 
 .. code-block:: python
-    
+
     'linear' : {
                 # Velocity vector
                 'vector' : [1.0,0.0,0.0],
-                # Optional: specifies velocity magnitude  
+                # Optional: specifies velocity magnitude
                 'Mach' : 0.20,
     },
 
@@ -659,7 +657,7 @@ Wall temperature
 
     'temperature' : {
                       # Temperature in Kelvin
-                      'scalar' : 280.0, 
+                      'scalar' : 280.0,
     },
 
 or
@@ -668,12 +666,12 @@ or
 
     'temperature' : {
                       # Temperature field specified as a VTK file
-                      'field' : 'temperate.vtp', 
+                      'field' : 'temperate.vtp',
     },
 
 .. note::
-    
-    The temperature at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the temperature 
+
+    The temperature at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the temperature
     value looked up in a node based scalar array called 'Temperature'
 
 Farfield
@@ -710,13 +708,13 @@ Options
                             'Monin-Obukhov length' : 2.0,
                             # Turbulent kinetic energy
                             'TKE' : 1.0,
-                            # Ground Level 
+                            # Ground Level
                             'z0' : 0.0,
                   },
     },
 
 .. code-block:: python
-  
+
     'turbulence' : {
                       'length scale' : 'filename.vtp',
                       'reynolds tensor' : 'filename.vtp',
@@ -738,9 +736,9 @@ Inflow
     # Inflow conditions
     'condition' : 'IC_2',
 
-.. note:: 
+.. note::
 
-    This boundary condition is specified by a total pressure and temperature ratios that needs to be defined by the 
+    This boundary condition is specified by a total pressure and temperature ratios that needs to be defined by the
     condition this refers to. See `Initial Conditions`_.
 
 Outflow
@@ -762,12 +760,12 @@ Outflow
 For massflow specified outflows use
 
 .. code-block:: python
-    
+
     'kind' : 'massflow',
 
-.. note:: 
+.. note::
 
-    This boundary condition is specified by a static pressure ratio or massflow ratio that needs to be defined by the 
+    This boundary condition is specified by a static pressure ratio or massflow ratio that needs to be defined by the
     condition this refers to. See `Initial Conditions`_.
 
 Symmetry
@@ -912,7 +910,7 @@ or for forest height map based definition
 The default canopy model constants are from Da Costa (2007). To recover the Svensson model use beta_p = 1.0, beta_d = 0, Ceps_4=1.95, Ceps_5 = 0
 
 .. note::
-    
+
     The forest height at each boundary face is set by finding the nearest point to the face centre on the supplied VTK file with the forest height value looked up in a node based scalar array called 'Height'
 
 
@@ -922,7 +920,7 @@ Example Leaf Area Density Function
 .. code-block:: python
 
     # Leaf Area Density function
-    # returns a list of tuples 
+    # returns a list of tuples
     def lad_function(cell_centre_list):
 
         lad_list = []
@@ -930,7 +928,7 @@ Example Leaf Area Density Function
             x = cell[0]
             y = cell[1]
             z = cell[2]
-            wall_distance = cell[3]  
+            wall_distance = cell[3]
 
             # Look up LAD for cell location
 
@@ -951,7 +949,7 @@ In addition to standard flow field outputs (see below), zCFD can provide informa
                   'frequency' : 1,
                   # Extract specified variable at fixed locations
                   'monitor' : {
-                                 # Consecutively numbered blocks 
+                                 # Consecutively numbered blocks
                                  'MR_1' : {
                                             # Name
                                             'name' : 'mast_1',
@@ -966,7 +964,7 @@ In addition to standard flow field outputs (see below), zCFD can provide informa
                   'forces' : {
                         # Consecutively numbered blocks
                         'FR_1' : {
-                                     # Name 
+                                     # Name
                                      'name' : 'wall',
                                      # Zones to be included
                                      'zone' : [11,12,13,14,15,20,21,22,23,24,25,26,27,28],
@@ -998,7 +996,7 @@ Example Transformation Function
 Output
 ------
 
-For solver efficiency, zCFD outputs the raw flow field data (plus any user-defined variables) to each parallel partition without re-combining the output files  
+For solver efficiency, zCFD outputs the raw flow field data (plus any user-defined variables) to each parallel partition without re-combining the output files
 
 .. code-block:: python
 
@@ -1022,7 +1020,7 @@ For solver efficiency, zCFD outputs the raw flow field data (plus any user-defin
                       'end output real time cycle' : 1000,
                       # Output real time cycle frequency
                       'output real time cycle frequency' : 10,
-                    },   
+                    },
 
 Options
 
@@ -1046,64 +1044,64 @@ If downstream processes need variables named using a specific convention a namin
 
 .. code-block:: python
 
-    'variable_name_alias' : { "V" : "VELOCITY", },    
+    'variable_name_alias' : { "V" : "VELOCITY", },
 
 
 .. topic:: Output Variables
 
    ===================== ===================== ==================================
-    Variable Name         Alias                 Definition                   
+    Variable Name         Alias                 Definition
    ===================== ===================== ==================================
-    temperature           T, t 
+    temperature           T, t
     temperaturegrad
     potentialtemperature
     pressure              p
-    gauge_pressure                                                  
-    density               rho                                                
+    gauge_pressure
+    density               rho
     velocity              V, v
-    velocitygradient                                               
+    velocitygradient
     cp
-    totalcp                                            
-    mach                  m                                                  
-    viscosity             mu                                                 
-    kinematicviscosity    nu                                                                                                    
-    vorticity                                                                  
+    totalcp
+    mach                  m
+    viscosity             mu
+    kinematicviscosity    nu
+    vorticity
     Qcriterion
     reynoldstress
     helicity
     enstrophy
     ek
-    lesregion                                                               
-    turbulenceintensity   ti                                                  
-    eddy                                                             
+    lesregion
+    turbulenceintensity   ti
+    eddy
     cell_velocity
-    cell_zone                                                            
-    centre                                                                   
-    walldistance                                                             
+    cell_zone
+    centre
+    walldistance
    ===================== ===================== ==================================
 
   Surface only quantities
 
-   ===================== ===================== ================================== 
-    Variable Name         Alias                 Definition                   
    ===================== ===================== ==================================
-    pressureforce                                                            
-    pressuremoment                                                           
-    pressuremomentx                                                          
-    pressuremomenty                                                          
-    pressuremomentz                                                          
-    frictionforce                                                            
+    Variable Name         Alias                 Definition
+   ===================== ===================== ==================================
+    pressureforce
+    pressuremoment
+    pressuremomentx
+    pressuremomenty
+    pressuremomentz
+    frictionforce
     frictionmoment
-    frictionmomentx                                                          
-    frictionmomenty                                                          
-    frictionmomentz                                                                                                                     
-    roughness                                                                
-    ut                                                                       
-    yplus                                                                    
-    zone                                                                     
+    frictionmomentx
+    frictionmomenty
+    frictionmomentz
+    roughness
+    ut
+    yplus
+    zone
     cf
-    facecentre                                                                       
-   ===================== ===================== ================================== 
+    facecentre
+   ===================== ===================== ==================================
 
-    
+
 
