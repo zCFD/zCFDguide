@@ -32,6 +32,7 @@ The utility takes several arguments:
                                     reference_wind_speed=10.0, \
                                     num_processes=48, \
                                     report_frequency=100, \
+                                    update_frequency=50, \
                                     turbine_files=[['xy_file_1.txt','turbine_type_1.trbx'], \
                                                    ['xy_file_2.txt','turbine_type_2.trbx']])
 
@@ -63,7 +64,9 @@ The utility extracts key information from the TRBX file to automatically create 
         'normal':[-0.998629534755,-0.0523359562429,-0.0],
         'inner radius':1.95500004292,
         'outer radius':60.0,
+        'reference plane': 'true',
         'reference point':[251745.164456,646479.719685,338.5],
+        'update frequency': 50, 
         },
         ...
     }
@@ -76,7 +79,7 @@ The *'centre'* is the centre of the disc, which is automatically determined from
 
 The vertical orientation is defined by the *'up'* vector - normally this will be the unit vector in the *z*-direction. The *'normal'* defines the vector perpendicular to the disc.  The inner and outer radii are based on the TRBX definition of the size of the disc. No account is made of the hub or tower geometry.
 
-The *'reference point'* defines the location in the flow domain that is used as the reference value of wind velocity for this turbine.  This velocity is used in combination with the thrust coefficient and the tip speed ratio for zCFD to calculate the momentum sources associated with the turbine.  By default the reference point is automatically located 1.0 turbine diameters upstream of the disc centre, assuming that the reference wind direction is also the local wind direction. This is easy to modify.
+The *'reference point'* defines the location in the flow domain that is used as the reference value of wind velocity for this turbine.  This velocity is used in combination with the thrust coefficient and the tip speed ratio for zCFD to calculate the momentum sources associated with the turbine.  By default the reference point is automatically located 2.5 turbine diameters upstream of the disc centre, assuming that the reference wind direction is also the local wind direction. This is easy to modify by editing the *farm.py* file. Also by default a single value is used, but if the *'reference plane'* is set to *'true'* then an averaged value of the turbine zone wind speed in an upstream plane containing the reference point is applied. The flow field is used to update the turbine model every *'update frequency'* timesteps, with a default to every timestep.   
 
 The utility also automatically creates a set of monitor points for each turbine, all in a single file (*<case_name>_probes.py*):
 
