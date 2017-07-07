@@ -5,7 +5,7 @@ Documentation for users of zCFD
 
 Build instructions
 
-Prerequisites: sphinx (pip install shinx)
+Prerequisites: sphinx (pip install sphinx)
 
 In the docs directory 
 
