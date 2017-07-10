@@ -915,7 +915,7 @@ The default canopy model constants are from Da Costa (2007). To recover the Sven
 
 
 Example Leaf Area Density Function
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 
