@@ -20,7 +20,7 @@ The command prompt will now appear with a (zCFD) prefix.  To run the *create_trb
 
 .. code-block:: bash
 
-    > (zCFD) > python
+    (zCFD) > python
 
 The utility takes several arguments:
 
@@ -33,6 +33,8 @@ The utility takes several arguments:
                                     num_processes=48, \
                                     report_frequency=100, \
                                     update_frequency=50, \
+                                    reference_point_offset=1.0,\
+                                    turbine_zone_length_factor=1.0,\
                                     turbine_files=[['xy_file_1.txt','turbine_type_1.trbx'], \
                                                    ['xy_file_2.txt','turbine_type_2.trbx']])
 
@@ -71,7 +73,7 @@ The utility extracts key information from the TRBX file to automatically create 
         ...
     }
 
-The *turbine_vtk/<turbine>.vtp* file defining the fluid zone for each turbine is also automatically created. The *'thrust coefficient'* is defined as a single value, and if a data point curve is present in the TRBX file this data is also supplied as the tuple array *'thrust coefficient curve'*, where the wind speed in metres per second is the index.  If this curve is provided, the utility will interpolate the curve at the reference speed to create the single value otherwise a default value (10 m/s) is used.
+The *'thrust coefficient'* is defined as a single value, and if a data point curve is present in the TRBX file this data is also supplied as the tuple array *'thrust coefficient curve'*, where the wind speed in metres per second is the index.  If this curve is provided, the utility will interpolate the curve at the reference speed to create the single value. The code will issue a warning if a thrust coefficient greater than 1.0 is specified.
 
 The same approach is taken for the *'tip speed ratio'* single value and curve - which is automatically calculated from the rotor speed array (revolutions per minute) in the TRBX file.
 
@@ -79,7 +81,9 @@ The *'centre'* is the centre of the disc, which is automatically determined from
 
 The vertical orientation is defined by the *'up'* vector - normally this will be the unit vector in the *z*-direction. The *'normal'* defines the vector perpendicular to the disc.  The inner and outer radii are based on the TRBX definition of the size of the disc. No account is made of the hub or tower geometry.
 
-The *'reference point'* defines the location in the flow domain that is used as the reference value of wind velocity for this turbine.  This velocity is used in combination with the thrust coefficient and the tip speed ratio for zCFD to calculate the momentum sources associated with the turbine.  By default the reference point is automatically located 2.5 turbine diameters upstream of the disc centre, assuming that the reference wind direction is also the local wind direction. This is easy to modify by editing the *farm.py* file. Also by default a single value is used, but if the *'reference plane'* is set to *'true'* then an averaged value of the turbine zone wind speed in an upstream plane containing the reference point is applied. The flow field is used to update the turbine model every *'update frequency'* timesteps, with a default to every timestep.   
+The *'reference point'* defines the location in the flow domain that is used as the reference value of wind velocity for this turbine.  This velocity is used in combination with the thrust coefficient and the tip speed ratio for zCFD to calculate the momentum sources associated with the turbine.  The user specifies the reference point location upstream of the turbine actuator using the keyword *'reference_point_offset'* which is applied as a factor to the rotor diameter.  Thus an offset of 1.0 places the reference point one turbine diameter upstream of the center of the rotor. Also by default a single value is used, but if the *'reference plane'* is set to *'true'* then an averaged value of the turbine zone wind speed in an upstream plane containing the reference point is applied. The flow field is used to update the turbine model every *'update frequency'* timesteps, with a default to every timestep.
+
+The *turbine_vtk/<turbine>.vtp* file defining the fluid zone for each turbine is also automatically created. The diameter of the cylindrical zone matches the turbine outer diameter, and the user specifies the length of the cylinder using the *'turbine_zone_length_factor'*. This factor is automatically multiplied by the turbine diameter.  A warning will be issued and the cylinder length automatically increased if the zone does not include the reference point.  In any case, a warning is issued if the cylinder length is less than one turbine diameter.
 
 The utility also automatically creates a set of monitor points for each turbine, all in a single file (*<case_name>_probes.py*):
 
