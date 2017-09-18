@@ -176,7 +176,7 @@ LU-SGS
                  'name' : 'lu-sgs',
                },
     'lu-sgs' : {
-                'Number Of SGS Cycles' : '8',
+                'Number Of SGS Cycles' : 8,
                 'Min CFL' : 1.0,
                 'Max CFL' : 10.0,
                 'Jacobian Update Frequency' : 1,
@@ -184,8 +184,7 @@ LU-SGS
                 'Include Backward Sweep' : True,
                 'Include Relaxation' : True,
                 'Jacobian Epsilon' : 1.0e-08,
-                'Use Rusanov Flux For Jacobian' : 'true',
-                'Finite Difference Jacobian' : 'false',
+                'Use Rusanov Flux For Jacobian' : True,
                },
 
 
@@ -292,8 +291,10 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                 'precondition' : 'true', 
                 # Turbulence                                        
                 'turbulence' : {
-                                  # turbulence model (options: 'sst') 
+                                  # turbulence model (options: 'sst', 'sa-neg') 
                                   'model' : 'sst',
+                                  # LES model (options 'none', 'des', 'ddes', 'sas')
+                                  'les' : 'none',
                                   # betastar turbulence closure constant
                                   'betastar' : 0.09,
                                   # turn off mu_t limiter (default on)
