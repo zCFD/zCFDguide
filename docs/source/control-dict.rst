@@ -157,7 +157,7 @@ Runge Kutta
 .. code-block:: python
 
     'scheme' : {
-                 # 
+                 # Either 'runge kutta' or 'lu-sgs'
                  'name' : 'runge kutta',
                  # Number of RK stages 'euler' or 1, 4, 5, 'rk third order tvd'
                  'stage': 5,
@@ -177,10 +177,7 @@ LU-SGS
                },
     'lu-sgs' : {
                 'Number Of SGS Cycles' : 8,
-                'Min CFL' : 1.0,
-                'Max CFL' : 10.0,
                 'Jacobian Update Frequency' : 1,
-                'CFL growth' : 1.05,
                 'Include Backward Sweep' : True,
                 'Include Relaxation' : True,
                 'Jacobian Epsilon' : 1.0e-08,
@@ -223,14 +220,22 @@ The Courant-Friedrichs-Lewy (CFL) number controls the local pseudo time-step tha
 
 .. code-block:: python
 
-    # Default CFL number for all equations 
+    # Default max CFL number for all equations 
     'cfl': 2.5
-    # Optional: Override CFL number for transported quantities 
+    # Optional: Override max CFL number for transported quantities 
     'cfl transport' : 1.5,
-    # Optional: Override CFL number for coarse meshes
+    # Optional: Override max CFL number for coarse meshes
     'cfl coarse' : 2.0,
     # Control of CFL for polynomial multigrid (from highest to lowest order)
     'multipolycfl' : [2.0,2.0,2.0],
+    # Ramp cfl (optional)
+    'cfl ramp factor': {
+                    # cfl = cfl_ini * growth ^ cycle
+                    'growth': 1.05,
+                    # min cfl
+                    'initial': 0.1,
+    },
+
 
 Cycles
 ^^^^^^
@@ -293,7 +298,7 @@ The fully turbulent (Reynolds Averaged Navier-Stokes Equations)
                 'turbulence' : {
                                   # turbulence model (options: 'sst', 'sa-neg') 
                                   'model' : 'sst',
-                                  # LES model (options 'none', 'des', 'ddes', 'sas')
+                                  # LES model (options 'none', 'DES', 'DDES', 'SAS')
                                   'les' : 'none',
                                   # betastar turbulence closure constant
                                   'betastar' : 0.09,
