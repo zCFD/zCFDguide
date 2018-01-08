@@ -776,6 +776,20 @@ For massflow specified outflows use
     This boundary condition is specified by a static pressure ratio or massflow ratio that needs to be defined by the 
     condition this refers to. See `Initial Conditions`_.
 
+For radial pressure equilibrium use
+
+.. code-block:: python
+
+    'kind': 'radial pressure gradient',
+    # Radius at which the static pressure ratio is defined
+    'reference radius' : 1.0,    
+
+.. note::
+
+    This boundary condition is specified by a static pressure ratio that needs to be defined by the 
+    condition this refers to. See `Initial Conditions`_. The rotational information is taken from 
+    the cell zone connected to this boundary.
+
 Symmetry
 ^^^^^^^^
 
